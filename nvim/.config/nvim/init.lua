@@ -62,6 +62,25 @@ use 'wbthomason/packer.nvim'
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
+  -- Adding nvim-metals
+  use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' } }
+  -- LSP Setup - TODO: move this somewhere
+  local metals_config = require("metals").bare_config()
+  -- Example of settings
+  metals_config.settings = {
+    showImplicitArguments = true,
+  }
+  -- TODO: add dap config for debugging
+  local api = vim.api
+  local nvim_metals_group = api.nvim_create_augroup('nvim-metals', { clear = true })
+  api.nvim_create_autocmd('FileType', {
+    pattern = { 'scala', 'sbt', 'java' },
+    callback = function()
+      require('metals').initialize_or_attach(metals_config)
+    end,
+    group = nvim_metals_group,
+  })
+
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
@@ -72,6 +91,11 @@ use 'wbthomason/packer.nvim'
     require('packer').sync()
   end
 end)
+
+-- my extension directories where i will be placing
+-- additional to starter configuration plugins
+-- require('after')
+-- require('custom')
 
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
@@ -93,6 +117,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
+
+-- vim key remaps
+-- TODO
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -198,15 +225,18 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    path_display = { truncate = 3 }
   },
 }
 
+-- pcall(require('telescope').load_extension, 'metals')
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+-- require('telescope.builtin').find_files{ path_display = { "truncate" }}
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -220,11 +250,16 @@ vim.keymap.set('n', '<leader>sp', function()
 end)
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = '[G]it [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sm', require('telescope.builtin').man_pages, { desc = '[S]earch [M]anual' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-
+-- TODO: trying to set up metals picker
+-- nmap('<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()')
+-- vim.keymap.set('n', '<leader>mc', require('telescope').extensions.metals.commands(), { desc='Metals' })
+-- require('telescope').extensions.metals.commands()
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
@@ -310,6 +345,8 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
+-- TODO: remove if no good
+  nmap('<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()<CR>')
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
@@ -318,6 +355,7 @@ local on_attach = function(_, bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>T', vim.lsp.buf.hover, 'Hover [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
@@ -392,10 +430,14 @@ mason_lspconfig.setup_handlers {
     -- this is a default configuration
     -- i will need for it metals installed locally
     -- eg via Coursier: cs install metals
-    require('lspconfig').metals.setup{
-      capabilities = capabilities,
-      on_attach = on_attach,
-    } 
+    -- the other option is to use nvim-metals plugin,
+    -- which possibly handles metals installation, so maybe i wouldn'the
+    -- need to ensure Coursier metal installation
+    -- ALSO: how do i call metals import, clear etc
+    -- require('lspconfig').metals.setup{
+    --   capabilities = capabilities,
+    --   on_attach = on_attach,
+    -- }
   end,
 }
 
