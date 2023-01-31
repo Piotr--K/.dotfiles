@@ -50,11 +50,20 @@ use 'wbthomason/packer.nvim'
   use 'idbrii/vim-notgrep'
   use 'tpope/vim-commentary'
 
+  -- Colorschemes
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  -- few to try
+  use 'EdenEast/nightfox.nvim' -- to use do: vim.cmd('colorscheme nightfox')
+  use 'folke/tokyonight.nvim' -- vim.cmd('colorscheme tokyonight') or vim.cmd[[colorscheme tokyonight]]
+  -- this will run tokyonight default schema to run variants [storm, night, moon, day] do
+  -- require("tokyonight").setup({
+  --  style = "storm"
+  --  )}) 
+  --  more settings on: https://github.com/folke/tokyonight.nvim
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -64,22 +73,6 @@ use 'wbthomason/packer.nvim'
 
   -- Adding nvim-metals
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' } }
-  -- LSP Setup - TODO: move this somewhere
-  local metals_config = require("metals").bare_config()
-  -- Example of settings
-  metals_config.settings = {
-    showImplicitArguments = true,
-  }
-  -- TODO: add dap config for debugging
-  local api = vim.api
-  local nvim_metals_group = api.nvim_create_augroup('nvim-metals', { clear = true })
-  api.nvim_create_autocmd('FileType', {
-    pattern = { 'scala', 'sbt', 'java' },
-    callback = function()
-      require('metals').initialize_or_attach(metals_config)
-    end,
-    group = nvim_metals_group,
-  })
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -151,7 +144,13 @@ vim.wo.signcolumn = 'yes'
 -- Set colorscheme
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
+-- vim.cmd[[colorscheme tokyonight]]
+-- vim.cmd [[colorscheme nightfox]] 
 vim.cmd [[colorscheme rose-pine]]
+
+-- setting transparent background
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -256,6 +255,7 @@ vim.keymap.set('n', '<leader>sm', require('telescope.builtin').man_pages, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[P]revious [P]icker' })
 -- TODO: trying to set up metals picker
 -- nmap('<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()')
 -- vim.keymap.set('n', '<leader>mc', require('telescope').extensions.metals.commands(), { desc='Metals' })
@@ -328,6 +328,15 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+-- remap for allowing multiple paste/replace
+vim.keymap.set('x', '<leader>p', "\"_dP")
+vim.keymap.set('n', '*', '*zz', {desc = 'Search and center the screen'})
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+--move text
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -345,8 +354,8 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
--- TODO: remove if no good
-  nmap('<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()<CR>')
+
+  vim.keymap.set('n','<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()<CR>') --, '[O]pens [M]etals Picker')
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
@@ -360,6 +369,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
+  -- is this not the same as leaderT above ?? TODO: clean it up
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
@@ -376,6 +386,35 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
+
+-- Metals Setup - TODO: move this somewhere
+local metals_config = require("metals").bare_config()
+-- Example of settings
+metals_config.settings = {
+  showImplicitArguments = true,
+}
+--remove statusbar if it interfere with other statuses
+metals_config.init_options.statusBarProvider = "on"
+metals_config.on_attach = on_attach
+-- TODO: add dap config for debugging
+local api = vim.api
+local nvim_metals_group = api.nvim_create_augroup('nvim-metals', { clear = true })
+api.nvim_create_autocmd('FileType', {
+  pattern = { 'scala', 'sbt', 'java' },
+  callback = function()
+    require('metals').initialize_or_attach(metals_config)
+    -- TODO: metals: fix this
+    -- vim.api.nvim_command("augroup LuaScript")
+    -- vim.api,nvim_command("autocmd!")
+    -- vim.api.nvim_command("autocmd BufEnter * lua require ('init.lua').on_attach(client, buffer)")
+    -- vim.api.nvim_command("augroup END")
+    -- on_attach({}, vim.api.nvim_get_current_buf())
+  end,
+  group = nvim_metals_group,
+})
+
+
+-- End of metals configuration
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -487,5 +526,9 @@ cmp.setup {
   },
 }
 
+-- metals TODOS:
+-- 1. set showImplicitArguments to true to display in hover
+-- 2. maybe set showImplicitConversionsAndClasses, which also would be displayed in hover
+-- 3. map some of more useful metal commands, eg. organize_imports
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

@@ -99,6 +99,11 @@ _G.packer_plugins = {
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/conjure",
     url = "https://github.com/Olical/conjure"
   },
+  ["duskfox.nvim"] = {
+    loaded = true,
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/duskfox.nvim",
+    url = "https://github.com/EdenEast/duskfox.nvim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/fidget.nvim",
@@ -138,6 +143,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/neovim",
     url = "https://github.com/rose-pine/neovim"
+  },
+  ["nightfox.nvim"] = {
+    loaded = true,
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
+    url = "https://github.com/EdenEast/nightfox.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -203,6 +213,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["vim-commentary"] = {
     loaded = true,
