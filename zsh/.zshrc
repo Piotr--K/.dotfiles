@@ -69,7 +69,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras git-flow docker docker-compose scala go golang colored-man github brew osx zsh-syntax-highlighting npm docker node sudo)
+plugins=(git git-extras git-flow docker docker-compose scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm docker node sudo)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile

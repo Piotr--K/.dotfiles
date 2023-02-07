@@ -7,6 +7,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+-- lua-tree related configs
+-- where we disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 require('packer').startup(function(use)
   -- Package manager
 use 'wbthomason/packer.nvim'
@@ -42,6 +47,18 @@ use 'wbthomason/packer.nvim'
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
   }
+  -- file explorer
+  -- some settings related to this plugin are
+  -- at the top of the file, eg to disable
+  -- netrw
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week
+  }
+
 
   -- Git related plugins
   use 'tpope/vim-fugitive'
@@ -110,9 +127,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
-
--- vim key remaps
--- TODO
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -256,12 +270,31 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[P]revious [P]icker' })
--- TODO: trying to set up metals picker
--- nmap('<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()')
--- vim.keymap.set('n', '<leader>mc', require('telescope').extensions.metals.commands(), { desc='Metals' })
--- require('telescope').extensions.metals.commands()
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
+
+-- using defaults
+-- below are example of alternative configuration
+require("nvim-tree").setup()
+-- require("nvim-tree").setup({
+--   sort_by = "case_sensitive",
+--   view = {
+--     width = 30,
+--     mappings = {
+--       list = {
+--         { key = "u", action = "dir_up" },
+--       },
+--     },
+--   },
+--   renderer = {
+--     group_empty = true,
+--   },
+--   filters = {
+--     dotfiles = true,
+--   },
+-- })
+local tree_api = require('nvim-tree.api')
+vim.keymap.set('n', '<leader>ee', tree_api.tree.toggle)
+-- default keymappings here: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
+
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'clojure', 'scala' },

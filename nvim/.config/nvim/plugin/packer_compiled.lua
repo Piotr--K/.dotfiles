@@ -99,11 +99,6 @@ _G.packer_plugins = {
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/conjure",
     url = "https://github.com/Olical/conjure"
   },
-  ["duskfox.nvim"] = {
-    loaded = true,
-    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/duskfox.nvim",
-    url = "https://github.com/EdenEast/duskfox.nvim"
-  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/fidget.nvim",
@@ -169,6 +164,11 @@ _G.packer_plugins = {
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/nvim-metals",
     url = "https://github.com/scalameta/nvim-metals"
   },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/nvim-tree/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -180,6 +180,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["onedark.nvim"] = {
     loaded = true,
