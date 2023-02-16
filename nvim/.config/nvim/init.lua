@@ -160,6 +160,13 @@ vim.o.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
 -- vim.cmd[[colorscheme tokyonight]]
 -- vim.cmd [[colorscheme nightfox]] 
+require('rose-pine').setup({
+  --- @usage string hex value or named color from rosepinetheme.com/palette
+  groups = {
+    comment = 'iris',
+    link = 'foam',
+  }
+})
 vim.cmd [[colorscheme rose-pine]]
 
 -- setting transparent background

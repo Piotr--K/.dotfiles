@@ -10,3 +10,6 @@ alias f="find . |grep " # finding file recursively in current dir
 alias h="history|grep " # searching through history for command
 #git
 alias gc="git commit -m" # git commit
+#fzf
+alias fzfp="fzf --preview 'cat {}'"
+alias fzfv='nvim $(fzfp)'

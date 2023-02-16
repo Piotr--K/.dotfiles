@@ -69,7 +69,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras git-flow docker docker-compose scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm docker node sudo)
+plugins=(fzf git git-extras git-flow docker docker-compose scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm docker node sudo)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
@@ -104,7 +104,17 @@ source ~/.bash_profile
 # export SDKMAN_DIR="/Users/pkarczewski/.sdkman"
 # [[ -s "/Users/pkarczewski/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pkarczewski/.sdkman/bin/sdkman-init.sh"
 
+#TODO - fix those .dotfiles references to be to linked files
+if [ -f ~/.dotfiles/scripts/z/z.sh ]; then
+    . ~/.dotfiles/scripts/z/z.sh
+fi
+if [ -f ~/.dotfiles/scripts/.bash_scripts ]; then
+    . ~/.dotfiles/scripts/.bash_scripts
+fi
+
 export NVM_DIR="/Users/pkarczewski/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
