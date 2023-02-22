@@ -65,7 +65,8 @@ use 'wbthomason/packer.nvim'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
   use 'idbrii/vim-notgrep'
-  use 'tpope/vim-commentary'
+  use 'tpope/vim-commentary' -- TODO: probably dont need this as have Comment below
+  use 'p00f/nvim-ts-rainbow' -- TODO: its not maintained anymore - check alternatives
 
   -- Colorschemes
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
@@ -92,6 +93,8 @@ use 'wbthomason/packer.nvim'
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' } }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
+  -- TODO: do this plugin composition via lua folder structure and 
+  -- requires hierarchicly
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
     plugins(use)
@@ -163,7 +166,8 @@ vim.o.termguicolors = true
 require('rose-pine').setup({
   --- @usage string hex value or named color from rosepinetheme.com/palette
   groups = {
-    comment = 'iris',
+    -- comment = 'iris',
+    comment = 'muted',
     link = 'foam',
   }
 })
@@ -299,7 +303,7 @@ require("nvim-tree").setup()
 --   },
 -- })
 local tree_api = require('nvim-tree.api')
-vim.keymap.set('n', '<leader>ee', tree_api.tree.toggle)
+vim.keymap.set('n', '<leader>xx', tree_api.tree.toggle)
 -- default keymappings here: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
 
 require('nvim-treesitter.configs').setup {
@@ -360,6 +364,13 @@ require('nvim-treesitter.configs').setup {
         ['<leader>A'] = '@parameter.inner',
       },
     },
+  },
+  rainbow = {
+    -- this is from:
+    -- https://github.com/p00f/nvim-ts-rainbow
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
   },
 }
 

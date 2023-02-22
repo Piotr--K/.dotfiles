@@ -2,7 +2,10 @@ return function(use)
 	use({
 		"guns/vim-sexp",
 		"tpope/vim-sexp-mappings-for-regular-people",
-		"luochen1990/rainbow",
+		--TODO: i've disabled it temp as it didnt work for me
+		--ive configured nvim-ts-rainbow to try out
+		--thats using treesitter
+		-- "luochen1990/rainbow",
 		"Olical/conjure",
 		"radenling/vim-dispatch-neovim",
 		"clojure-vim/vim-jack-in",
