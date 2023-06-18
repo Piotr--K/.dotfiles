@@ -7,6 +7,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 -- lua-tree related configs
 -- where we disable netrw
 vim.g.loaded_netrw = 1
@@ -59,20 +64,81 @@ use 'wbthomason/packer.nvim'
     tag = 'nightly' -- optional, updated every week
   }
 
+  -- Debugger via dap adapter
+  use 'mfussenegger/nvim-dap'
+    local dap = require('dap')
+  -- mappings TODO: move those to separate file
+    vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+    vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+    vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+    vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+    vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() end)
+    vim.keymap.set('n', '<leader>B', function() require('dap').set_breakpoint() end)
+    vim.keymap.set('n', '<leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+    -- conditional breakpoint, where:
+    -- first arg passed needs to be a boolean condition
+    -- and second argument needs to be a number indicating how many times line needs to be hit before execution pauses on the breakpoint
+    vim.keymap.set('n', '<leader>bc', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit count: '), nil) end)
+    vim.keymap.set('n', '<leader>dr', function() require('dap').repl.open() end)
+    vim.keymap.set('n', '<leader>dc', function() require('dap').repl.close() end)
+    vim.keymap.set('n', '<leader>dl', function() require('dap').run_last() end)
+    vim.keymap.set('n', '<leader>dx', function() require('dap').clear_breakpoints() end)
+    vim.keymap.set('n', '<leader>da', function() require('dap').list_breakpoints() end)
+    vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+      require('dap.ui.widgets').hover()
+    end)
+    vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+      require('dap.ui.widgets').preview()
+    end)
+    vim.keymap.set('n', '<Leader>df', function()
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.frames)
+    end)
+    vim.keymap.set('n', '<Leader>ds', function()
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.scopes)
+    end)
+  -- client
+    dap.defaults.fallback.terminal_win_cmd = 'belowright new'
+    dap.configurations.scala = {
+      {
+        type = "scala",
+        request = "launch",
+        name = "Run or Test Target",
+        metals = {
+          runType = "runOrTestFile",
+        },
+      },
+      {
+        type = "scala",
+        request = "launch",
+        name = "Test Target",
+        metals = {
+          runType = "testTarget",
+        },
+      },
+    }
 
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
   use 'idbrii/vim-notgrep'
-  use 'tpope/vim-commentary' -- TODO: probably dont need this as have Comment below
-  use 'p00f/nvim-ts-rainbow' -- TODO: its not maintained anymore - check alternatives
+  -- use 'tpope/vim-commentary' -- TODO: probably dont need this as have Comment below
+  -- use 'p00f/nvim-ts-rainbow' -- TODO: its not maintained anymore - check alternatives
+  -- nvim change history, keymapping below
+  -- vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+  use 'mbbill/undotree'
+  -- use 'hiphish/nvim-ts-rainbow2'
+  use 'mrjones2014/nvim-ts-rainbow'
+  -- use 'luochen1990/rainbow'
+  -- use 'junegunn/rainbow_parentheses.vim'
 
   -- Colorschemes
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines, "gb" - block comment
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   -- few to try
   use 'EdenEast/nightfox.nvim' -- to use do: vim.cmd('colorscheme nightfox')
@@ -131,6 +197,11 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = vim.fn.expand '$MYVIMRC',
 })
 
+
+-- rainbox configuration - TODO: can i use some lua form rather?
+-- set to 0 if you want to enable it later via :RainbowToggle
+-- vim.g.rainbow_active = 1
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
@@ -181,11 +252,21 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.o.completeopt = 'menuone,noselect'
 
 -- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+
+-- metals build progress
+vim.g.metals_show_status = 'window'
+
+-- remove default mapping to NOTHING,
+-- because its pissing me off
+-- clashing with buffer search <leader>?
+-- require('custom').setup {
+--   sexp_mappings = {
+--     ["<leader>?"] = nil
+--   }
+-- }
+-- vim.api.nvim_set_keymap('n', '', "<Plug>(sexp_convolute)", { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>|', "<Plug>(sexp_convolute)", { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>|', "<Plug>(sexp_convolute)", { silent = true })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -205,13 +286,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+-- keymapping for undotree
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
-    icons_enabled = false,
-    theme = 'onedark',
+    icons_enabled = true,
+    theme = 'molokai',
     component_separators = '|',
     section_separators = '',
   },
@@ -284,7 +367,19 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 
 -- using defaults
 -- below are example of alternative configuration
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  diagnostics = {
+    enable = true,
+-- TODO: setup icons for hint/info/warning/error if defaults don't work
+  },
+  view = {
+    width = 30,
+  },
+  update_focused_file = {
+    enable = true
+  }
+
+})
 -- require("nvim-tree").setup({
 --   sort_by = "case_sensitive",
 --   view = {
@@ -302,6 +397,7 @@ require("nvim-tree").setup()
 --     dotfiles = true,
 --   },
 -- })
+-- local rainbow = require 'ts-rainbow'
 local tree_api = require('nvim-tree.api')
 vim.keymap.set('n', '<leader>xx', tree_api.tree.toggle)
 -- default keymappings here: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
@@ -366,12 +462,23 @@ require('nvim-treesitter.configs').setup {
     },
   },
   rainbow = {
-    -- this is from:
-    -- https://github.com/p00f/nvim-ts-rainbow
     enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
+    -- disabling temporary to play with another fork of ts-rainbow
+    -- query = {
+    --   'rainbow-parens'
+    -- },
+    -- strategy = {
+    --   rainbow.strategy.global,
+    --   commonlisp = rainbow.strategy['local'],
+    -- },
   },
+  -- rainbow = {
+  --   -- this is from:
+  --   -- https://github.com/p00f/nvim-ts-rainbow
+  --   enable = true,
+  --   extended_mode = true,
+  --   max_file_lines = nil,
+  -- },
 }
 
 -- Diagnostic keymaps
@@ -432,6 +539,8 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
+  -- trying to remap sexp clashing mapping
+  vim.keymap.set('n', '<leader>|', "<Plug>(sexp_convolute)", { noremap = true, silent = true })
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
@@ -443,10 +552,18 @@ local metals_config = require("metals").bare_config()
 -- Example of settings
 metals_config.settings = {
   showImplicitArguments = true,
+  -- this is from: https://github.com/scalameta/nvim-metals/blob/main/doc/metals.txt#L68
+  -- and should allow to select test suite or test case
+  testUserInterface = "Test Explorer",
 }
 --remove statusbar if it interfere with other statuses
 metals_config.init_options.statusBarProvider = "on"
-metals_config.on_attach = on_attach
+-- metals_config.on_attach = on_attach
+metals_config.on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+  require("metals").setup_dap()
+end
+
 -- TODO: add dap config for debugging
 local api = vim.api
 local nvim_metals_group = api.nvim_create_augroup('nvim-metals', { clear = true })
@@ -483,12 +600,13 @@ local servers = {
   -- TODO: colors scheme and transparency
   -- TODO: clojure specific plugins
 
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
+  --TODO - clean it up - recently disabled due to problems while running :so
+  -- sumneko_lua = {
+  --   Lua = {
+  --     workspace = { checkThirdParty = false },
+  --     telemetry = { enable = false },
+  --   },
+  -- },
 }
 
 -- Setup neovim lua configuration
@@ -577,6 +695,11 @@ cmp.setup {
   },
 }
 
+-- i want to evaluate vimscript code from lua
+vim.api.nvim_exec(
+[[
+  let g:conjure#client#clojure#nrepl#mapping#session_fresh = 'sz'
+]], false)
 -- metals TODOS:
 -- 1. set showImplicitArguments to true to display in hover
 -- 2. maybe set showImplicitConversionsAndClasses, which also would be displayed in hover

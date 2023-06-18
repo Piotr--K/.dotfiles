@@ -184,7 +184,7 @@ _G.packer_plugins = {
   ["nvim-ts-rainbow"] = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
-    url = "https://github.com/p00f/nvim-ts-rainbow"
+    url = "https://github.com/mrjones2014/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -206,11 +206,6 @@ _G.packer_plugins = {
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  rainbow = {
-    loaded = true,
-    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/rainbow",
-    url = "https://github.com/luochen1990/rainbow"
-  },
   ["telescope-fzf-native.nvim"] = {
     cond = { true },
     loaded = false,
@@ -229,10 +224,10 @@ _G.packer_plugins = {
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
-  ["vim-commentary"] = {
+  undotree = {
     loaded = true,
-    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/vim-commentary",
-    url = "https://github.com/tpope/vim-commentary"
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/undotree",
+    url = "https://github.com/mbbill/undotree"
   },
   ["vim-dispatch-neovim"] = {
     loaded = true,

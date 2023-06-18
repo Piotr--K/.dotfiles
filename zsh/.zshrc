@@ -69,7 +69,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git git-extras git-flow docker docker-compose scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm docker node sudo)
+plugins=(fzf git git-extras git-flow scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm node sudo)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
@@ -118,3 +118,6 @@ export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "/Users/pkarczewski/repositories/demandtech/hephaestus/ktx/env.zsh"
+source "/Users/pkarczewski/repositories/demandtech/hephaestus/ktx/osx-gnu-setup.sh"
+alias docker=podman

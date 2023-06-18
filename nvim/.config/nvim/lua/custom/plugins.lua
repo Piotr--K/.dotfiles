@@ -20,6 +20,12 @@ return function(use)
 			sources = {
 				{ name = 'conjure' },
 			}
-		}
+		},
+		-- vim.keymap.set('n', '<leader>|', "<Plug>('sexp_convolute')", { silent = true }),
+		-- vim.api.nvim_del_keymap('n', "<Plug>('sexp_convolute')")
+-- vim.api.nvim_del_keymap('n', '<leader>?')
+		-- g.sexp_mappings {
+		--  	sexp_convolute = ''
+		--  }
 	})
 end
