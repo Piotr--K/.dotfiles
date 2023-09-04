@@ -99,6 +99,11 @@ _G.packer_plugins = {
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/conjure",
     url = "https://github.com/Olical/conjure"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/pkarczewski/.local/share/nvim/site/pack/packer/start/fidget.nvim",

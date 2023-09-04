@@ -21,6 +21,8 @@ require('packer').startup(function(use)
   -- Package manager
 use 'wbthomason/packer.nvim'
 
+require "custom.copilot"
+
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -120,6 +122,7 @@ use 'wbthomason/packer.nvim'
     }
 
   -- Git related plugins
+  use 'github/copilot.vim'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
@@ -528,7 +531,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   -- is this not the same as leaderT above ?? TODO: clean it up
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality

@@ -120,4 +120,3 @@ export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source "/Users/pkarczewski/repositories/demandtech/hephaestus/ktx/env.zsh"
 source "/Users/pkarczewski/repositories/demandtech/hephaestus/ktx/osx-gnu-setup.sh"
-alias docker=podman

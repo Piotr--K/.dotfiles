@@ -1,0 +1,5 @@
+# stolen from: https://nosarthur.github.io/productivity/2021/09/07/fzf.html
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
