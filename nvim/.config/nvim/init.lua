@@ -21,7 +21,6 @@ require('packer').startup(function(use)
   -- Package manager
 use 'wbthomason/packer.nvim'
 
-require "custom.copilot"
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -234,18 +233,24 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
+-- vim.opt.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
 -- vim.cmd[[colorscheme tokyonight]]
 -- vim.cmd [[colorscheme nightfox]] 
 require('rose-pine').setup({
   --- @usage string hex value or named color from rosepinetheme.com/palette
-  groups = {
+ groups = {
     -- comment = 'iris',
-    comment = 'muted',
-    link = 'foam',
+   comment = 'muted',
+   link = 'foam',
+ },
+  highlight_groups = {
+    -- CursorLine = { bg = 'foam', blend = 10}, -- cursor color
+    CursorLine = { fg='highlight_high', bg = 'surface', blend = 10}, -- cursor color
   }
 })
 vim.cmd [[colorscheme rose-pine]]
+-- vim.cmd("highlight Cursor guifx=rose guibg=rose")
 
 -- setting transparent background
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -408,6 +413,7 @@ vim.keymap.set('n', '<leader>xx', tree_api.tree.toggle)
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'clojure', 'scala' },
+  ignore_install = { 'help' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },

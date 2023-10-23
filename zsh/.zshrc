@@ -2,7 +2,7 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/pkarczewski/.oh-my-zsh"
+# export ZSH="/Users/pkarczewski/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -69,7 +69,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git git-extras git-flow scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm node sudo)
+plugins=(fzf git git-extras git-flow scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm node sudo z)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
@@ -112,11 +112,9 @@ if [ -f ~/.dotfiles/scripts/.bash_scripts ]; then
     . ~/.dotfiles/scripts/.bash_scripts
 fi
 
-export NVM_DIR="/Users/pkarczewski/.nvm"
+# export NVM_DIR="/Users/pkarczewski/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source "/Users/pkarczewski/repositories/demandtech/hephaestus/ktx/env.zsh"
-source "/Users/pkarczewski/repositories/demandtech/hephaestus/ktx/osx-gnu-setup.sh"
