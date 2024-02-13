@@ -114,6 +114,13 @@ _G.packer_plugins = {
     path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["haskell-tools.nvim"] = {
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/Users/piotrk/.local/share/nvim/site/pack/packer/opt/haskell-tools.nvim",
+    url = "https://github.com/mrcjkb/haskell-tools.nvim"
+  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -139,11 +146,6 @@ _G.packer_plugins = {
     path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/neodev.nvim",
     url = "https://github.com/folke/neodev.nvim"
   },
-  neovim = {
-    loaded = true,
-    path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/neovim",
-    url = "https://github.com/rose-pine/neovim"
-  },
   ["nightfox.nvim"] = {
     loaded = true,
     path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
@@ -158,6 +160,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/nvim-dap",
     url = "https://github.com/mfussenegger/nvim-dap"
+  },
+  ["nvim-dap-go"] = {
+    loaded = true,
+    path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/nvim-dap-go",
+    url = "https://github.com/leoluz/nvim-dap-go"
+  },
+  ["nvim-dap-ui"] = {
+    loaded = true,
+    path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
+    url = "https://github.com/rcarriga/nvim-dap-ui"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -210,6 +222,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["rose-pine"] = {
+    loaded = true,
+    path = "/Users/piotrk/.local/share/nvim/site/pack/packer/start/rose-pine",
+    url = "https://github.com/rose-pine/neovim"
   },
   ["telescope-fzf-native.nvim"] = {
     cond = { true },
@@ -286,6 +303,16 @@ time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]
 vim.cmd [[ packadd nvim-treesitter-textobjects ]]
 time([[Sequenced loading]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType lhaskell ++once lua require("packer.load")({'haskell-tools.nvim'}, { ft = "lhaskell" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cabal ++once lua require("packer.load")({'haskell-tools.nvim'}, { ft = "cabal" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cabalproject ++once lua require("packer.load")({'haskell-tools.nvim'}, { ft = "cabalproject" }, _G.packer_plugins)]]
+vim.cmd [[au FileType haskell ++once lua require("packer.load")({'haskell-tools.nvim'}, { ft = "haskell" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

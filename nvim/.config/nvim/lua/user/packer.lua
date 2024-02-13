@@ -26,7 +26,7 @@ require('packer').startup(function(use)
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
+      { 'j-hui/fidget.nvim', tag = 'legacy' },
 
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
@@ -114,6 +114,15 @@ require('packer').startup(function(use)
 
   -- Adding nvim-metals
   use { 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim', 'mfussenegger/nvim-dap' } }
+
+  -- haskell
+  -- this plugin automatically configures the haskell-language-server builtin LSP client and integrates
+  -- with other haskell tools, you just need some mappings
+  use { 'mrcjkb/haskell-tools.nvim', versions = '^3', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
+
+  use 'leoluz/nvim-dap-go'
+
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
   if is_bootstrap then
     require('packer').sync()
