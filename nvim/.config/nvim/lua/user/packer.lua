@@ -58,7 +58,6 @@ require('packer').startup(function(use)
     requires = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    tag = 'nightly' -- optional, updated every week
   }
 
   -- Debugger via dap adapter
