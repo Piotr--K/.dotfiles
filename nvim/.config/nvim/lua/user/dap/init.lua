@@ -51,51 +51,12 @@ end
 
 -- client
 dap.defaults.fallback.terminal_win_cmd = 'belowright new'
-dap.configurations.scala = {
-	{
-		type = "scala",
-		request = "launch",
-		name = "Run or Test Target",
-		metals = {
-			runType = "runOrTestFile",
-		},
-	},
-	{
-		type = "scala",
-		request = "launch",
-		name = "Test Target",
-		metals = {
-			runType = "testTarget",
-		},
-	},
-}
-require('dap-go').setup()
---[[ {
-	dap_configurations = {
-		type = "go",
-		name = "Run or Test Target",
-		request = "launch",
-	},
-	-- delve configuration
-	delve = {
-		-- the path to the executable dlv which will be used for debugging.
-		-- by default, this is the "dlv" executable on your PATH.
-		path = "dlv",
-		-- time to wait for delve to initialize the debug session.
-		-- default to 20 seconds
-		initialize_timeout_sec = 20,
-		-- a string that defines the port to start delve debugger.
-		-- default to string "${port}" which instructs nvim-dap
-		-- to start the process in a random available port
-		port = "${port}",
-		-- additional args to pass to dlv
-		args = {},
-		-- the build flags that are passed to delve.
-		-- defaults to empty string, but can be used to provide flags
-		-- such as "-tags=unit" to make sure the test suite is
-		-- compiled during debugging, for example.
-		-- passing build flags using args is ineffective, as those are
-		-- ignored by delve in dap mode.
-		build_flags = "",
-	},
-} ]]
+
+local function configure_debuggers()
+	require("user.dap.scala").setup()
+	require("user.dap.go").setup()
+	require("user.dap.typescript").setup()
+	require("user.dap.javascript").setup()
+end
+
+configure_debuggers()

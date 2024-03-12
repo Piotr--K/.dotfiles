@@ -11,7 +11,7 @@ local servers = {
   gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
   clojure_lsp = {},
   --TODO - clean it up - recently disabled due to problems while running :so
   -- sumneko_lua = {

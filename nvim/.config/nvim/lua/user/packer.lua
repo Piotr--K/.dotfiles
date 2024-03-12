@@ -124,6 +124,20 @@ require('packer').startup(function(use)
 
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
+  --typescript
+  use 
+    { 
+      "microsoft/vscode-js-debug",
+      opt = true,
+      run = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
+      requires = {"mfussenegger/nvim-dap"}
+    }
+  use 
+  { 
+    "mxsdev/nvim-dap-vscode-js",
+    requires = {"microsoft/vscode-js-debug"}
+  }
+
   if is_bootstrap then
     require('packer').sync()
   end
