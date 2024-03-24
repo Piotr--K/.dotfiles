@@ -14,8 +14,8 @@ should add those aliased to .gitconfig (one for local branches one for remote):
 To setup macos i need:
 - install git
 - install kdiff and configure git (user, email, mergetools)
-- install go,sbt,nvm, node
-- install fzf, Ack, ripgrep (rg: required for telescope) 
+- install go, jvm, sbt, nvm, node, clojure
+- install fzf, Ack, ripgrep (rg: required for telescope), fd (brew install ripgrep; brew install fd)
 - install z
 - install warp: set theme
 - install oh-my-zsh (plugins for it defined in .zshrc: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/)
