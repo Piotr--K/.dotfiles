@@ -1,9 +1,15 @@
 alias tmux="TERM=screen-256color-bce tmux"
-export TILLER_NAMESPACE=tiller-kodachrome
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export DOCKER_REGISTRY_DEV=rblwe01devacr.azurecr.io
+export HELM_REGISTRY_DEV=rblwe01devacr
+export DOCKER_REGISTRY_REL=rbljp01releaseacr.azurecr.io
+export HELM_REGISTRY_REL=rbljp01releaseacr
+ 
+export HELM_EXPERIMENTAL_OCI=1
 
 # Run something, muting output or redirecting it to the debug stream
 # depending on the value of _ARC_DEBUG.

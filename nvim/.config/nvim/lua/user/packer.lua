@@ -121,7 +121,7 @@ require('packer').startup(function(use)
 
   use 'leoluz/nvim-dap-go'
 
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
 
   --typescript
   use 

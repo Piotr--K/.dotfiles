@@ -63,16 +63,17 @@ ZSH_THEME="agnoster"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+# export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+eval $(/opt/homebrew/bin/brew shellenv)
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git git-extras git-flow scala go golang colored-man-pages github brew osx zsh-syntax-highlighting npm node sudo z)
+plugins=(fzf git scala golang colored-man-pages github npm node z)
 
-source $ZSH/oh-my-zsh.sh
-source ~/.bash_profile
+source $HOME/.oh-my-zsh/oh-my-zsh.sh
+# source ~/.bash_profile
 
 # User configuration
 
@@ -111,10 +112,17 @@ fi
 if [ -f ~/.dotfiles/scripts/.bash_scripts ]; then
     . ~/.dotfiles/scripts/.bash_scripts
 fi
+if [ -f ~/.dotfiles/bash_aliases/.bash_aliases ]; then
+    . ~/.dotfiles/bash_aliases/.bash_aliases
+fi
 
 # export NVM_DIR="/Users/pkarczewski/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
