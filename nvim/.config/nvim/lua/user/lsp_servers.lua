@@ -13,6 +13,8 @@ local servers = {
   -- rust_analyzer = {},
   tsserver = {},
   clojure_lsp = {},
+  eslint = {},
+  prettier,
   --TODO - clean it up - recently disabled due to problems while running :so
   -- sumneko_lua = {
   --   Lua = {

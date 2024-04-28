@@ -26,6 +26,10 @@ alias gca="git commit --amend" # git commit ammend
 alias gco="git checkout"
 alias ggp='git push origin "$(git_current_branch)"'
 alias gp="git pull"
+alias lg='git log --graph --abbrev-commit --decorate --format=format:"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)" --all'
+alias lg2='git log --graph --abbrev-commit --decorate --format=format:"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)"'
+
 #fzf
 alias fzfp="fzf --preview 'bat {-1} --color=always'"
 alias fzfv='nvim $(fzfp)'
+alias rabbit='echo "Username      : rblminer" && echo "Password      : $(kubectl get secret --namespace default rabbitmq-auth -o jsonpath="{.data.rabbitmq-password}" | base64 --decode)" && open "http://127.0.0.1:15672" && kubectl port-forward --namespace default svc/rabbitmq 15672:15672'

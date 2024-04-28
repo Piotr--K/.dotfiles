@@ -1,5 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Rakuten stuff
+export PATH=$PATH:~/build_scripts
+export DOCKER_REGISTRY_DEV=rblwe01devacr.azurecr.io
+export HELM_REGISTRY_DEV=rblwe01devacr
+export DOCKER_REGISTRY_REL=rbljp01releaseacr.azurecr.io
+export HELM_REGISTRY_REL=rbljp01releaseacr
+export HELM_EXPERIMENTAL_OCI=1
+export HELM_USER_DEV=
+export HELM_PW_DEV=
 
 # Path to your oh-my-zsh installation.
 # export ZSH="/Users/pkarczewski/.oh-my-zsh"

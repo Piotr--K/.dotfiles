@@ -42,7 +42,8 @@ vim.keymap.set('n', '<leader>gbc', require('telescope.builtin').git_bcommits, { 
 -- nvim-tree
 vim.keymap.set('n', '<leader>xx', require('nvim-tree.api').tree.toggle)
 -- default keymappings here: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
-
+-- prettier/formatter keymap
+vim.keymap.set('n', '<leader>fp', ':Format<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)

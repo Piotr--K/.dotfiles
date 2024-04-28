@@ -134,8 +134,13 @@ require('packer').startup(function(use)
   use 
   { 
     "mxsdev/nvim-dap-vscode-js",
-    requires = {"microsoft/vscode-js-debug"}
+    requires = {"mfussenegger/nvim-dap"}
+    -- TODO - PK: check if thats correct
+    -- requires = {"microsoft/vscode-js-debug"}
   }
+  use 'mfussenegger/nvim-lint'
+  use 'MunifTanjim/prettier.nvim'
+  use 'mhartington/formatter.nvim'
 
   if is_bootstrap then
     require('packer').sync()
