@@ -141,6 +141,7 @@ require('packer').startup(function(use)
   use 'mfussenegger/nvim-lint'
   use 'MunifTanjim/prettier.nvim'
   use 'mhartington/formatter.nvim'
+  use 'stevearc/conform.nvim'
 
   if is_bootstrap then
     require('packer').sync()
