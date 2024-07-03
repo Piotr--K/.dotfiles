@@ -26,7 +26,8 @@ require('packer').startup(function(use)
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim', tag = 'legacy' },
+      -- { 'j-hui/fidget.nvim', tag = 'legacy' },
+      { 'j-hui/fidget.nvim', tag = 'v1.4.5' },
 
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
