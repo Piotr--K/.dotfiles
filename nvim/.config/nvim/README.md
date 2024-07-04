@@ -7,3 +7,7 @@ For reinstalling plugins i was doing:
 
 but that didn't help with my problem, had to manually remove 'site' folder in:
 ~/.local/share/nvim
+
+
+TODOs:
+1. install & configure: which-key: https://github.com/folke/which-key.nvim
