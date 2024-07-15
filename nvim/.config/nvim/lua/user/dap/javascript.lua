@@ -108,7 +108,8 @@ function M.setup()
         -- platform = 'node',
         address = '0.0.0.0',
         -- hostname = 'localhost',   -- Use 'localhost' if you map the port to the host
-        port = 20800,             -- The port you exposed and mapped in docker-compose
+        port = 20207,             -- The port you exposed and mapped in docker-compose
+        -- 20207: transaction-cache
         remoteRoot = '/app/',      -- Adjust this to the working directory in the container
         -- localRoot = vim.fn.getcwd(),
         localRoot = '${workspaceFolder}',
