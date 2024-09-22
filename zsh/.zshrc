@@ -9,6 +9,7 @@ export HELM_REGISTRY_REL=rbljp01releaseacr
 export HELM_EXPERIMENTAL_OCI=1
 export HELM_USER_DEV=
 export HELM_PW_DEV=
+export PATH=~/rakuten-ssh/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 # export ZSH="/Users/pkarczewski/.oh-my-zsh"

@@ -33,3 +33,31 @@ alias lg2='git log --graph --abbrev-commit --decorate --format=format:"%C(bold b
 alias fzfp="fzf --preview 'bat {-1} --color=always'"
 alias fzfv='nvim $(fzfp)'
 alias rabbit='echo "Username      : rblminer" && echo "Password      : $(kubectl get secret --namespace default rabbitmq-auth -o jsonpath="{.data.rabbitmq-password}" | base64 --decode)" && open "http://127.0.0.1:15672" && kubectl port-forward --namespace default svc/rabbitmq 15672:15672'
+
+#kubectl
+alias k='kubectl'
+alias kga='kubectl get all'
+alias kg='kubectl get'
+alias kd='kubectl describe'
+alias kdel='kubectl delete'
+alias kex='kubectl exec'
+alias kl='kubectl logs'
+alias kc='kubectl config'
+#kubectl namespaces
+alias kgn='kubectl get namespaces'
+alias kns='kubectl config set-context --current --namespace'
+alias kgpn='kubectl get pods -n'
+alias kgsn='kubectl get svc -n'
+#kubectl pods
+alias kgp='kubectl get pods'
+alias kgpall='kubectl get pods --all-namespaces'
+alias kdp='kubectl describe pods'
+alias kep='kubectl exec -it'
+#kubectl services
+alias kgs='kubectl get svc'
+alias kds='kubectl describe svc'
+#kubectl configmaps & secrets
+alias kgcm='kubectl get configmap'
+alias kdcm='kubectl describe configmap'
+alias kgsec='kubectl get secret'
+alias kdsec='kubectl describe secret'
