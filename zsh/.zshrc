@@ -73,7 +73,7 @@ ZSH_THEME="agnoster"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
-eval $(/opt/homebrew/bin/brew shellenv)
+# eval $(/opt/homebrew/bin/brew shellenv)
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/

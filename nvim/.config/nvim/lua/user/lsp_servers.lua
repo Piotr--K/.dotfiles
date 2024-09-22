@@ -15,6 +15,12 @@ local servers = {
   clojure_lsp = {},
   eslint = {},
   prettier,
+  solidity = {
+    cmd = {'nomicfoundation-solidity-language-server', '--stdio'},
+    filetypes = {'solidity'},
+    root_dir = require('lspconfig.util').find_git_ancestor,
+    signle_file_support = true,
+  },
   --TODO - clean it up - recently disabled due to problems while running :so
   -- sumneko_lua = {
   --   Lua = {
