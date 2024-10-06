@@ -144,6 +144,12 @@ require('packer').startup(function(use)
   use 'mhartington/formatter.nvim'
   use 'stevearc/conform.nvim'
 
+  -- this is for buffer evaluation
+  -- would like to stick with conjure
+  -- but it support well clojure and other lisp
+  -- but i wanted javascript/nodejs and hasckell
+  use 'Vigemus/iron.nvim'
+
   if is_bootstrap then
     require('packer').sync()
   end
