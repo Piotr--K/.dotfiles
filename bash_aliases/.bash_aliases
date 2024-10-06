@@ -61,3 +61,5 @@ alias kgcm='kubectl get configmap'
 alias kdcm='kubectl describe configmap'
 alias kgsec='kubectl get secret'
 alias kdsec='kubectl describe secret'
+#Rakuten specific
+alias rd='rakcd' && compdef rd='rakcd'
