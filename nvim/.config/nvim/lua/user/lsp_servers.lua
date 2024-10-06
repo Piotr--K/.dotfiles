@@ -11,16 +11,24 @@ local servers = {
   gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  tsserver = {},
+  -- tsserver = {},
+  ts_ls = {},
   clojure_lsp = {},
   eslint = {},
   prettier,
-  solidity = {
-    cmd = {'nomicfoundation-solidity-language-server', '--stdio'},
-    filetypes = {'solidity'},
-    root_dir = require('lspconfig.util').find_git_ancestor,
-    signle_file_support = true,
-  },
+  solc = {},
+  -- solidity_ls = {
+    -- cmd = {'nomicfoundation-solidity-language-server', '--stdio'},
+    -- filetypes = {'solidity'},
+    -- root_dir = require('lspconfig').util.find_git_ancestor,
+    -- single_file_support = true,
+  -- },
+  -- solidity = {
+  --   cmd = {'nomicfoundation-solidity-language-server', '--stdio'},
+  --   filetypes = {'solidity'},
+  --   root_dir = require('lspconfig.util').find_git_ancestor,
+  --   single_file_support = true,
+  -- },
   --TODO - clean it up - recently disabled due to problems while running :so
   -- sumneko_lua = {
   --   Lua = {
@@ -156,7 +164,11 @@ mason_lspconfig.setup_handlers {
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
+      settings = servers[server_name]
+      -- cmd = servers[server_name].cmd,
+      -- filetypes = servers[server_name].filetypes,
+      -- root_dir = servers[server_name].root_dir,
+      -- single_file_support = servers[server_name].single_file_support,
       -- TODO: in orig file i have flags = lsp_flags
     }
   end,

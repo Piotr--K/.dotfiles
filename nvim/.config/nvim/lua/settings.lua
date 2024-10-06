@@ -61,7 +61,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- i want to evaluate vimscript code from lua
-vim.api.nvim_exec(
-[[
-  let g:conjure#client#clojure#nrepl#mapping#session_fresh = 'sz'
-]], false)
+-- vim.api.nvim_exec(
+-- [[
+--   let g:conjure#client#clojure#nrepl#mapping#session_fresh = 'sz'
+--
+--   let g:conjure#filetype#javascript = "node"
+--   let g:conjure#client#node#stdio#command = "node-repl"
+-- ]], false)
+
+vim.g["conjure#client#clojure#nrepl#mapping#session_fresh"] = "sz"
