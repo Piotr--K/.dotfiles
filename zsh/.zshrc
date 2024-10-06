@@ -115,6 +115,49 @@ source $HOME/.oh-my-zsh/oh-my-zsh.sh
 # export SDKMAN_DIR="/Users/pkarczewski/.sdkman"
 # [[ -s "/Users/pkarczewski/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pkarczewski/.sdkman/bin/sdkman-init.sh"
 
+############# Rakuten specific configuration ######################
+#read only
+# export RAKCD_BITBUCKET_TOKEN=BBDC-NzU2NTA4ODk2MjI0OjJ48zG+enU1Iw7LiAVZi3c2pEGy
+# write
+# export RAKCD_BITBUCKET_TOKEN=BBDC-MTA0MjgzODc5OTg2OqBhqV/Wpc4aUoSOISlLg0sp/VOX
+# admin
+export RAKCD_BITBUCKET_TOKEN=BBDC-NTM5MDA3NDY0NjQ5OtFI2jMhsxw7X0nhtba1AOiJs/W1
+# Clone repos under the project directory. 0 or 1 Up to your preference.
+export RAKCD_ORGANISE_REPO=1
+export RAKCD_REPO_BASE=~/Documents/repositories/rakcd
+
+# Enables completion. (Add only if you haven't added it.)
+autoload -U compinit && compinit -i
+
+# Change the path if you cloned the repo into different place.
+source ~/rakcd/rakcd.zsh
+rakcd_compinit
+
+### BELOW ARE OPTIONAL BUT RECOMMENDED
+
+# Let you navigate around candidates menu by tab or cursor keys.
+zstyle ':completion:*:rakcd:*' menu yes select
+
+# Start searching candidates by pressing ? or /
+zmodload zsh/complist
+bindkey -M menuselect '?' history-incremental-search-forward
+bindkey -M menuselect '/' history-incremental-search-backward
+#
+########## fzf-tab configuration #####################
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+###################################################################
+
 #TODO - fix those .dotfiles references to be to linked files
 if [ -f ~/.dotfiles/scripts/z/z.sh ]; then
     . ~/.dotfiles/scripts/z/z.sh
@@ -135,4 +178,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# if you cloned fzf-tab to ~/fzf-tab folder
+[ -f ~/fzf-tab/fzf-tab.plugin.zsh ] && source ~/fzf-tab/fzf-tab.plugin.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
