@@ -9,6 +9,3 @@ vim.api.nvim_set_keymap('n', '<C-p>', ":echo expand('%:p')<CR>", {noremap = true
 --  autocmd!
 --  autocmd BufWritePost plugins.lua source <afile> | PackerSync
 -- augroup end
-
-
-
