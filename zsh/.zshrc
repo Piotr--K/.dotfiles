@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH="/opt/homebrew/bin:$PATH"
 # Rakuten stuff
 export PATH=$PATH:~/build_scripts
 export DOCKER_REGISTRY_DEV=rblwe01devacr.azurecr.io
@@ -74,7 +75,7 @@ ZSH_THEME="agnoster"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
-# eval $(/opt/homebrew/bin/brew shellenv)
+eval $(/opt/homebrew/bin/brew shellenv)
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/

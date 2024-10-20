@@ -17,14 +17,14 @@ require('iron.core').setup({
     repl_open_cmd = "vsplit" -- This will open the REPL in a vertical split
   },
   keymaps = {
-    send_motion = "<leader>sc",  -- Send the current motion to the REPL
-    visual_send = "<leader>sc",  -- Send the visually selected text
-    send_file = "<leader>sf",    -- Send the entire file to the REPL
-    send_line = "<leader>sl",    -- Send the current line to the REPL
-    send_mark = "<leader>sm",    -- Send a specific mark to the REPL
-    cr = "<leader>s<cr>",        -- Send the line and move to the next one
-    interrupt = "<leader>s<space>", -- Interrupt the REPL
-    exit = "<leader>sq",         -- Exit the REPL
+    send_motion = "<leader>ssc",  -- Send the current motion to the REPL
+    visual_send = "<leader>ssc",  -- Send the visually selected text
+    send_file = "<leader>ssf",    -- Send the entire file to the REPL
+    send_line = "<leader>ssl",    -- Send the current line to the REPL
+    send_mark = "<leader>ssm",    -- Send a specific mark to the REPL
+    cr = "<leader>ss<cr>",        -- Send the line and move to the next one
+    interrupt = "<leader>ss<space>", -- Interrupt the REPL
+    exit = "<leader>ssq",         -- Exit the REPL
   }
 })
 

@@ -98,7 +98,7 @@ function M.setup()
           end)
         end,
         protocol = "inspector",
-        port = 20800,
+        port = 20067,
         cwd = "${workspaceFolder}",
       },
       {
@@ -108,9 +108,12 @@ function M.setup()
         -- platform = 'node',
         address = '0.0.0.0',
         -- hostname = 'localhost',   -- Use 'localhost' if you map the port to the host
-        port = 20207,             -- The port you exposed and mapped in docker-compose
-        -- 20207: transaction-cache
+        port = 20067,             -- The port you exposed and mapped in docker-compose
+        -- badge-service: 20067,
+        -- 20207: transaction-cache-service
         remoteRoot = '/app/',      -- Adjust this to the working directory in the container
+        -- badge-service: /app/
+        -- transaction-cache-service: /app/
         -- localRoot = vim.fn.getcwd(),
         localRoot = '${workspaceFolder}',
         -- cwd = '${workspaceFolder}',  -- Adjust this to your local project directory
