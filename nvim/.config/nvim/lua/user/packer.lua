@@ -66,10 +66,12 @@ require('packer').startup(function(use)
 
   -- Git related plugins
   use 'github/copilot.vim'
-  use 'tpope/vim-fugitive'
+  -- use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
   use 'idbrii/vim-notgrep'
+  use 'NeogitOrg/neogit'
+  use 'sindrets/diffview.nvim'
   -- use 'tpope/vim-commentary' -- TODO: probably dont need this as have Comment below
   -- use 'p00f/nvim-ts-rainbow' -- TODO: its not maintained anymore - check alternatives
   -- nvim change history, keymapping below
@@ -92,6 +94,13 @@ require('packer').startup(function(use)
   --  more settings on: https://github.com/folke/tokyonight.nvim
 
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  -- i'm using it for lualine, but its for notification and command line
+  use { 'folke/noice.nvim', 
+    requires = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    }
+  }
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines, "gb" - block comment
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
