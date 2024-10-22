@@ -1,5 +1,24 @@
 local neogit = require('neogit')
 
+neogit.setup {
+  integrations = {
+    diffview = true,
+    telescope = true,
+  },
+}
+
+vim.keymap.set("n", "<leader>gm", ":!git mergetool<CR>",
+  {silent = true, noremap = true}
+)
+
+vim.keymap.set("n", "<leader>gdo", ":DiffviewOpen<CR>",
+  {silent = true, noremap = true}
+)
+
+vim.keymap.set("n", "<leader>gdc", ":DiffviewClose<CR>",
+  {silent = true, noremap = true}
+)
+
 vim.keymap.set("n", "<leader>gs", neogit.open,
   {silent = true, noremap = true}
 )
