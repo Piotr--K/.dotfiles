@@ -1,15 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-# Rakuten stuff
-export PATH=$PATH:~/build_scripts
-export DOCKER_REGISTRY_DEV=rblwe01devacr.azurecr.io
-export HELM_REGISTRY_DEV=rblwe01devacr
-export DOCKER_REGISTRY_REL=rbljp01releaseacr.azurecr.io
-export HELM_REGISTRY_REL=rbljp01releaseacr
-export HELM_EXPERIMENTAL_OCI=1
-export HELM_USER_DEV=
-export HELM_PW_DEV=
-export PATH=~/rakuten-ssh/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 # export ZSH="/Users/pkarczewski/.oh-my-zsh"
@@ -80,9 +70,10 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git scala golang colored-man-pages github npm node z)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
+plugins=(git scala golang colored-man-pages github npm node z fzf)
+# plugins=(fzf)
 # source ~/.bash_profile
 
 # User configuration
@@ -131,8 +122,29 @@ fi
 export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 
+export FZF_DEFAULT_COMMAND="fd . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+rali() {
+    local chosen_alias
+    # Search for aliases and select one
+    # chosen_alias=$(alias | fzf | sed -E "s/^alias [^=]+='(.*)'$/\1/")
+    chosen_alias=$(alias | fzf | awk -F"'" '{print $2}')
+    # Execute the selected alias
+    if [[ -n "$chosen_alias" ]]; then
+        # echo "$chosen_alias"
+        print -z "$chosen_alias "
+        # eval "$chosen_alias"
+    fi
+}
+
+# Set up fzf key bindings and fuzzy completion
+# eval "$(fzf --zsh)"
+# source <(fzf --zsh)
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
