@@ -178,6 +178,19 @@ export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+rali() {
+    local chosen_alias
+    # Search for aliases and select one
+    # chosen_alias=$(alias | fzf | sed -E "s/^alias [^=]+='(.*)'$/\1/")
+    chosen_alias=$(alias | fzf | awk -F"'" '{print $2}')
+    # Execute the selected alias
+    if [[ -n "$chosen_alias" ]]; then
+        # echo "$chosen_alias"
+        print -z "$chosen_alias "
+        # eval "$chosen_alias"
+    fi
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # if you cloned fzf-tab to ~/fzf-tab folder
 [ -f ~/fzf-tab/fzf-tab.plugin.zsh ] && source ~/fzf-tab/fzf-tab.plugin.zsh
