@@ -133,6 +133,8 @@ require('packer').startup(function(use)
 
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
 
+  use "b0o/schemastore.nvim"
+
   --typescript
   use 
     { 

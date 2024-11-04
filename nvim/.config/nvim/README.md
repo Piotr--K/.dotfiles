@@ -1,5 +1,7 @@
 you need to install delve (go debugger): https://github.com/go-delve/delve/tree/master/Documentation/installation
 you need to install fonts: i have nerd
+you need to install yaml server: npm install -g yaml-language-server (now i'm not 100% sure if this is needed, as i've added yaml to the list of servers in lspconfig)
+to configure schemaStore: https://github.com/b0o/SchemaStore.nvim
 
 For reinstalling plugins i was doing:
 1. :PackerClean
