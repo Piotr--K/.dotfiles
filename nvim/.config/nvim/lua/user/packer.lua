@@ -127,7 +127,7 @@ require('packer').startup(function(use)
   -- haskell
   -- this plugin automatically configures the haskell-language-server builtin LSP client and integrates
   -- with other haskell tools, you just need some mappings
-  use { 'mrcjkb/haskell-tools.nvim', versions = '^3', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
+  use { 'mrcjkb/haskell-tools.nvim', versions = '^4', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
 
   use 'leoluz/nvim-dap-go'
 
