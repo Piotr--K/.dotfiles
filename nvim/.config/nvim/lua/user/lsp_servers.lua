@@ -12,6 +12,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  hls = {},
   ts_ls = {},
   clojure_lsp = {},
   eslint = {},
@@ -124,24 +125,27 @@ api.nvim_create_autocmd('FileType', {
   group = nvim_metals_group,
 })
 -- haskell setups
-vim.g.haskell_tools = {
-   ---@type ToolsOpts
-   tools = {
-     -- ...
-   },
-   ---@type HaskellLspClientOpts
-   hls = {
-     on_attach = function(client, bufnr)
-       -- Set keybindings, etc. here.
-      -- on_attach(client, bufnr)
-     end,
-     -- ...
-   },
-   ---@type HTDapOpts
-   dap = {
-     -- ...
-   },
- }
+-- local ht = require("haskell-tools")
+-- -- vim.g.haskell_tools = {
+-- local haskell_config = {
+--    ---@type ToolsOpts
+--    tools = {
+--      -- ...
+--    },
+--    ---@type HaskellLspClientOpts
+--    hls = {
+--      on_attach = function(client, bufnr)
+--        -- Set keybindings, etc. here.
+--       -- on_attach(client, bufnr)
+--      end,
+--      -- ...
+--    },
+--    ---@type HTDapOpts
+--    dap = {
+--      -- ...
+--    },
+--  }
+-- ht.setup(haskell_config)
 -- Setup neovim lua configuration
 require('neodev').setup()
 --
