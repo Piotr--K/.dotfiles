@@ -23,10 +23,11 @@ require('packer').startup(function(use)
     requires = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
+      'mfussenegger/nvim-lint',
+      'rshkarin/mason-nvim-lint',
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- { 'j-hui/fidget.nvim', tag = 'legacy' },
       { 'j-hui/fidget.nvim', tag = 'v1.4.5' },
 
       -- Additional lua configuration, makes nvim stuff amazing
@@ -127,7 +128,8 @@ require('packer').startup(function(use)
   -- haskell
   -- this plugin automatically configures the haskell-language-server builtin LSP client and integrates
   -- with other haskell tools, you just need some mappings
-  use { 'mrcjkb/haskell-tools.nvim', versions = '^3', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
+  -- i think that i need either this plugin or mason: hls server
+  -- use { 'mrcjkb/haskell-tools.nvim', versions = '^4', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
 
   use 'leoluz/nvim-dap-go'
 

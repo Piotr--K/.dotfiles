@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export KUBE_EDITOR="nvim"
 # export PATH="/opt/homebrew/bin:$PATH"
 # Rakuten stuff
 export PATH=$PATH:~/build_scripts
@@ -19,7 +20,8 @@ export PATH=~/rakuten-ssh/bin:$PATH
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+ZSH_THEME="muse"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -195,3 +197,5 @@ rali() {
 # if you cloned fzf-tab to ~/fzf-tab folder
 [ -f ~/fzf-tab/fzf-tab.plugin.zsh ] && source ~/fzf-tab/fzf-tab.plugin.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f "/Users/piotr.karczewski/.ghcup/env" ] && . "/Users/piotr.karczewski/.ghcup/env" # ghcup-env

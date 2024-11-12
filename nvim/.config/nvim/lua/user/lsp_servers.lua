@@ -5,19 +5,20 @@
 --  the `settings` field of the server config. You must look up that documentation yourself.
 --  Note:
 --  scala has metals, installed on the system
---  haskell has language server installed while installing haskell tools, compilers from its page
 local servers = {
   -- clangd = {},
   gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  hls = {},
   ts_ls = {},
   clojure_lsp = {},
   eslint = {},
   prettier,
   solc = {},
   yamlls = {},
+
   -- solidity_ls = {
     -- cmd = {'nomicfoundation-solidity-language-server', '--stdio'},
     -- filetypes = {'solidity'},
@@ -124,25 +125,25 @@ api.nvim_create_autocmd('FileType', {
   end,
   group = nvim_metals_group,
 })
--- haskell setups
-vim.g.haskell_tools = {
-   ---@type ToolsOpts
-   tools = {
-     -- ...
-   },
-   ---@type HaskellLspClientOpts
-   hls = {
-     on_attach = function(client, bufnr)
-       -- Set keybindings, etc. here.
-      -- on_attach(client, bufnr)
-     end,
-     -- ...
-   },
-   ---@type HTDapOpts
-   dap = {
-     -- ...
-   },
- }
+-- haskell setups - clean it up: this is part of haskell-tools
+-- vim.g.haskell_tools = {
+--    ---@type ToolsOpts
+--    tools = {
+--      -- ...
+--    },
+--    ---@type HaskellLspClientOpts
+--    hls = {
+--      on_attach = function(client, bufnr)
+--        -- Set keybindings, etc. here.
+--       -- on_attach(client, bufnr)
+--      end,
+--      -- ...
+--    },
+--    ---@type HTDapOpts
+--    dap = {
+--      -- ...
+--    },
+--  }
 -- Setup neovim lua configuration
 require('neodev').setup()
 --
@@ -174,6 +175,17 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+-- install linters
+require('mason-nvim-lint').setup({
+  ensure_installed = {
+    'eslint',
+    'prettier',
+    'hlint',
+    'clj-kondo',
+    'golangci-lint',
+  },
+})
 
 require('lspconfig').yamlls.setup {
   settings = {

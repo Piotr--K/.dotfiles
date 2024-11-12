@@ -63,3 +63,5 @@ alias kgsec='kubectl get secret'
 alias kdsec='kubectl describe secret'
 #Rakuten specific
 alias rd='rakcd' && compdef rd='rakcd'
+alias bastion_ebp_stage='az ssh vm --ip nalhrvjfoclxnydy.japaneast.cloudapp.azure.com'
+alias bastion_ebp_prod='az ssh vm --ip vptpbufjbywnkjlj.japaneast.cloudapp.azure.com'
