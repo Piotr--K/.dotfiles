@@ -14,8 +14,8 @@ local servers = {
   hls = {},
   ts_ls = {},
   clojure_lsp = {},
-  eslint = {},
-  prettier,
+  -- eslint = {},
+  -- prettier,
   solc = {},
   yamlls = {},
 
@@ -176,14 +176,15 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- install linters
+-- install linters, remaining are in linters.lua
+-- TODO: consider moving this setup there as well
 require('mason-nvim-lint').setup({
   ensure_installed = {
-    'eslint',
+    -- 'eslint',
     'prettier',
-    'hlint',
-    'clj-kondo',
-    'golangci-lint',
+    -- 'hlint',
+    -- 'clj-kondo',
+    -- 'golangci-lint',
   },
 })
 
