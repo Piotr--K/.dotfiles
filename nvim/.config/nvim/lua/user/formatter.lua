@@ -4,16 +4,18 @@ M.config = function()
     local conform = require("conform")
     local format_on_save_enabled = true
       
+    -- conform will run first available formatter
     conform.setup({
       formatters_by_ft = {
-        javascript = { "prettier", "eslint_d" },
-        typescript = { "prettier", "eslint_d" },
+        lua = { "stylua" },
+        scala = { "scalafmt" },
+        go = { "goimports", "gofmt" },
+        -- install cljfmt with:
+        -- clojure -Sdeps '{:deps {cljfmt/cljfmt {:mvn/version "0.8.2"}}}' -m cljfmt.main
+        clojure = { "cljfmt" },
+        javascript = { "eslint_d", "prettier", stop_after_first = true  },
+        typescript = { "eslint_d", "prettier", stop_after_first = true  },
       },
-      -- format_on_save = {
-        -- lsp_fallback = true,
-        -- async = false,
-        -- timeout_ms = 500,
-      -- },
     })
   
     function ToggleFormatOnSave()
