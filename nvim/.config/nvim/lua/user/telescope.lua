@@ -8,6 +8,15 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    vimgrep_arguments = {
+      -- 'rg',
+      -- '--color=never',
+      -- '--no-heading',
+      -- '--with-filename',
+      -- '--line-number',
+      -- '--column',
+      '--smart-case'  -- This is the default. Replace with '--case-sensitive' for case sensitivity.
+    },
     path_display = { truncate = 3 }
   },
 }
