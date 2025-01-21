@@ -11,6 +11,23 @@ For reinstalling plugins i was doing:
 but that didn't help with my problem, had to manually remove 'site' folder in:
 ~/.local/share/nvim
 
+to configure indetation per project bases:
+1. create .editorconfig file in the root of the project
+2. add the following:
+```
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+```
+
+or per file type:
+```
+[*.{js,jsx,ts,tsx}]
+indent_style = space
+indent_size = 2
+```
 
 TODOs:
 1. install & configure: which-key: https://github.com/folke/which-key.nvim
