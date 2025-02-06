@@ -29,5 +29,10 @@ indent_style = space
 indent_size = 2
 ```
 
+to format buffer to json (via jq):
+```
+:%!jq .
+```
+
 TODOs:
 1. install & configure: which-key: https://github.com/folke/which-key.nvim

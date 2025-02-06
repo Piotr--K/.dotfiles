@@ -112,6 +112,7 @@ require('packer').startup(function(use)
   --thats using treesitter
   -- "luochen1990/rainbow",
   use 'Olical/conjure'
+  use 'tpope/vim-dispatch'
   use 'radenling/vim-dispatch-neovim'
   use 'clojure-vim/vim-jack-in'
   use({ 'rose-pine/neovim', as = 'rose-pine'})
