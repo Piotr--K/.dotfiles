@@ -180,11 +180,7 @@ mason_lspconfig.setup_handlers {
 -- TODO: consider moving this setup there as well
 require('mason-nvim-lint').setup({
   ensure_installed = {
-    -- 'eslint',
     'prettier',
-    -- 'hlint',
-    -- 'clj-kondo',
-    -- 'golangci-lint',
   },
 })
 

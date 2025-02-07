@@ -42,6 +42,15 @@ alias kd='kubectl describe'
 alias kdel='kubectl delete'
 alias kex='kubectl exec'
 alias kl='kubectl logs'
+# klf() {
+#   local pod
+#   pod=$(kgp | fzf | awk '{print $1}')
+#   if [ -n "$pod" ]; then
+#     command kl "$pod"
+#   else
+#     echo "No pod selected."
+#   fi
+# }
 alias kc='kubectl config'
 #kubectl namespaces
 alias kgn='kubectl get namespaces'

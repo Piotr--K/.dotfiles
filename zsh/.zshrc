@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export KUBE_EDITOR="nvim"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # export PATH="/opt/homebrew/bin:$PATH"
 # Rakuten stuff
 export PATH=$PATH:~/build_scripts
