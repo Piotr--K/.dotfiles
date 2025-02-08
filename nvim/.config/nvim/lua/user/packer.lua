@@ -23,10 +23,11 @@ require('packer').startup(function(use)
     requires = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
+      'mfussenegger/nvim-lint',
+      'rshkarin/mason-nvim-lint',
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- { 'j-hui/fidget.nvim', tag = 'legacy' },
       { 'j-hui/fidget.nvim', tag = 'v1.4.5' },
 
       -- Additional lua configuration, makes nvim stuff amazing
@@ -132,6 +133,8 @@ require('packer').startup(function(use)
   use 'leoluz/nvim-dap-go'
 
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+
+  use "b0o/schemastore.nvim"
 
   --typescript
   use 

@@ -1,3 +1,12 @@
+yaml = {
+      schemas = {
+        ["https://json.schemastore.org/openapi-3.0.json"] = "*.yaml",
+      },
+      schemaStore = {
+        enable = true,
+        url = "https://www.schemastore.org/api/json/catalog.json",
+      },
+    },
 require('user')
 require('settings')
 require('keymaps')

@@ -15,9 +15,10 @@ local servers = {
   hls = {},
   ts_ls = {},
   clojure_lsp = {},
-  eslint = {},
-  prettier,
+  -- eslint = {},
+  -- prettier,
   solc = {},
+  yamlls = {},
   -- solidity_ls = {
     -- cmd = {'nomicfoundation-solidity-language-server', '--stdio'},
     -- filetypes = {'solidity'},
@@ -176,6 +177,38 @@ mason_lspconfig.setup_handlers {
       -- TODO: in orig file i have flags = lsp_flags
     }
   end,
+}
+
+-- install linters, remaining are in linters.lua
+-- TODO: consider moving this setup there as well
+require('mason-nvim-lint').setup({
+  ensure_installed = {
+    'prettier',
+  },
+})
+
+require('lspconfig').yamlls.setup {
+  settings = {
+    yaml = {
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
+      },
+      schemas = require('schemastore').yaml.schemas(),
+    },
+  },
+}
+
+require('lspconfig').jsonls.setup {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
 }
 
 -- Turn on lsp status information
