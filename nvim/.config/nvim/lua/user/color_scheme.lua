@@ -40,7 +40,9 @@
        Search = { bg = 'gold', inherit = false },
 
        CursorLine = { fg='highlight_high', bg = 'surface', blend = 10}, -- cursor color
+       CursorLineNr = { fg='love', bg = 'surface', bold = true}, -- cursor color
      }
    })
   -- Set colorscheme after options
   vim.cmd('colorscheme rose-pine')
+  vim.opt.cursorline = true
