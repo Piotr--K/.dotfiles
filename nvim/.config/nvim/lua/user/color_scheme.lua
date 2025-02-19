@@ -40,6 +40,7 @@
        Search = { bg = 'gold', inherit = false },
 
        CursorLine = { fg='highlight_high', bg = 'surface', blend = 10}, -- cursor color
+       CursorLineNr = { fg = 'love', bg = 'surface', bold = false },
      }
    })
   -- Set colorscheme after options
