@@ -162,6 +162,10 @@ require('packer').startup(function(use)
   -- but i wanted javascript/nodejs and hasckell
   use 'Vigemus/iron.nvim'
 
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
+
   if is_bootstrap then
     require('packer').sync()
   end
