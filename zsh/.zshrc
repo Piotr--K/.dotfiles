@@ -14,8 +14,11 @@ export HELM_USER_DEV=
 export HELM_PW_DEV=
 export PATH=~/rakuten-ssh/bin:$PATH
 
+# something i had to add after problmes with docker desktop
+export DOCKER_HOST=unix:///Users/$USER/Library/Containers/com.docker.docker/Data/docker.raw.sock
+
 # Path to your oh-my-zsh installation.
-# export ZSH="/Users/pkarczewski/.oh-my-zsh"
+export ZSH="/Users/piotr.karczewski/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -84,7 +87,7 @@ eval $(/opt/homebrew/bin/brew shellenv)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git scala golang colored-man-pages github npm node z)
+plugins=(fzf git scala golang colored-man-pages github npm node kube-ps1 z)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 # source ~/.bash_profile
@@ -173,13 +176,18 @@ if [ -f ~/.dotfiles/bash_aliases/.bash_aliases ]; then
     . ~/.dotfiles/bash_aliases/.bash_aliases
 fi
 
+KUBE_PS1_NS_COLOR=red
+KUBE_PS1_CTX_COLOR=red
+# PROMPT='%F{green}%3~%f $(kube_ps1) %F{yellow}$(current_branch)%f %# '
+RPROMPT='$(kube_ps1)'
+
 # export NVM_DIR="/Users/pkarczewski/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 export PATH="/usr/local/opt/php@7.2/bin:$PATH"
 export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 rali() {
     local chosen_alias
