@@ -164,6 +164,9 @@ require('packer').startup(function(use)
   -- but i wanted javascript/nodejs and hasckell
   use 'Vigemus/iron.nvim'
 
+  -- to set root directory of the project
+  use 'airblade/vim-rooter'
+
   if is_bootstrap then
     require('packer').sync()
   end

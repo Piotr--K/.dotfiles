@@ -71,6 +71,7 @@ require('gitsigns').setup {
     end)
 
     -- Actions
+    -- TODO: mapping for :Gitsigns blame - which opens a new buffer with the blame
     map('n', '<leader>hs', gitsigns.stage_hunk)
     map('n', '<leader>hr', gitsigns.reset_hunk)
     map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
@@ -80,10 +81,13 @@ require('gitsigns').setup {
     map('n', '<leader>hR', gitsigns.reset_buffer)
     map('n', '<leader>hp', gitsigns.preview_hunk)
     map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
+    map('n', '<leader>hB', gitsigns.blame)
     map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
     map('n', '<leader>hd', gitsigns.diffthis)
     map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
     map('n', '<leader>td', gitsigns.toggle_deleted)
+    map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+    map('n', '<leader>hq', gitsigns.setqflist)
 
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
