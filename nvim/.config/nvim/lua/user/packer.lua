@@ -167,6 +167,11 @@ require('packer').startup(function(use)
   -- to set root directory of the project
   use 'airblade/vim-rooter'
 
+  -- to use terminal in nvim
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
+
   if is_bootstrap then
     require('packer').sync()
   end
