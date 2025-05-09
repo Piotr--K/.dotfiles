@@ -84,10 +84,10 @@ require('packer').startup(function(use)
   -- use 'junegunn/rainbow_parentheses.vim'
 
   -- Colorschemes
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   -- few to try
-  use 'EdenEast/nightfox.nvim' -- to use do: vim.cmd('colorscheme nightfox')
-  use 'folke/tokyonight.nvim' -- vim.cmd('colorscheme tokyonight') or vim.cmd[[colorscheme tokyonight]]
+  -- use 'EdenEast/nightfox.nvim' -- to use do: vim.cmd('colorscheme nightfox')
+  -- use 'folke/tokyonight.nvim' -- vim.cmd('colorscheme tokyonight') or vim.cmd[[colorscheme tokyonight]]
   -- this will run tokyonight default schema to run variants [storm, night, moon, day] do
   -- require("tokyonight").setup({
   --  style = "storm"
