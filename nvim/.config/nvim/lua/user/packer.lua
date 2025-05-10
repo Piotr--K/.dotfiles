@@ -166,6 +166,21 @@ require('packer').startup(function(use)
     require("toggleterm").setup()
   end}
 
+  -- ai
+  -- codecompanion: https://codecompanion.olimorris.dev/installation.html
+
+  use({
+    "olimorris/codecompanion.nvim",
+    config = function()
+      require("codecompanion").setup()
+    end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
+    }
+  })
+
   if is_bootstrap then
     require('packer').sync()
   end

@@ -164,28 +164,32 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name]
-      -- cmd = servers[server_name].cmd,
-      -- filetypes = servers[server_name].filetypes,
-      -- root_dir = servers[server_name].root_dir,
-      -- single_file_support = servers[server_name].single_file_support,
-      -- TODO: in orig file i have flags = lsp_flags
-    }
-  end,
-}
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     require('lspconfig')[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = on_attach,
+--       settings = servers[server_name]
+--       -- cmd = servers[server_name].cmd,
+--       -- filetypes = servers[server_name].filetypes,
+--       -- root_dir = servers[server_name].root_dir,
+--       -- single_file_support = servers[server_name].single_file_support,
+--       -- TODO: in orig file i have flags = lsp_flags
+--     }
+--   end,
+-- }
 
--- install linters, remaining are in linters.lua
--- TODO: consider moving this setup there as well
-require('mason-nvim-lint').setup({
-  ensure_installed = {
-    'prettier',
+mason_lspconfig.setup {
+  handlers = {
+    function(server_name)
+      require("lspconfig")[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+      }
+    end,
   },
-})
+}
 
 require('lspconfig').yamlls.setup {
   settings = {
