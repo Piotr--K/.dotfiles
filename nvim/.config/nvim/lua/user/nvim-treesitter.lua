@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'clojure', 'scala', 'haskell', 'solidity', 'yaml' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'luadoc', 'python', 'rust', 'typescript', 'help', 'vim', 'vimdoc', 'clojure', 'scala', 'haskell', 'solidity', 'yaml' },
   ignore_install = { 'help' },
 
   highlight = { enable = true },
@@ -58,22 +58,4 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
-  rainbow = {
-    enable = true,
-    -- disabling temporary to play with another fork of ts-rainbow
-    -- query = {
-    --   'rainbow-parens'
-    -- },
-    -- strategy = {
-    --   rainbow.strategy.global,
-    --   commonlisp = rainbow.strategy['local'],
-    -- },
-  },
-  -- rainbow = {
-  --   -- this is from:
-  --   -- https://github.com/p00f/nvim-ts-rainbow
-  --   enable = true,
-  --   extended_mode = true,
-  --   max_file_lines = nil,
-  -- },
 }

@@ -74,14 +74,10 @@ require('packer').startup(function(use)
   use 'NeogitOrg/neogit'
   use 'sindrets/diffview.nvim'
   -- use 'tpope/vim-commentary' -- TODO: probably dont need this as have Comment below
-  -- use 'p00f/nvim-ts-rainbow' -- TODO: its not maintained anymore - check alternatives
   -- nvim change history, keymapping below
   -- vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
   use 'mbbill/undotree'
-  -- use 'hiphish/nvim-ts-rainbow2'
-  use 'mrjones2014/nvim-ts-rainbow'
-  -- use 'luochen1990/rainbow'
-  -- use 'junegunn/rainbow_parentheses.vim'
+  use 'HiPhish/rainbow-delimiters.nvim'
 
   -- Colorschemes
   -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
@@ -180,6 +176,16 @@ require('packer').startup(function(use)
       "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
     }
   })
+
+  -- todo: fix mcp-hub: something wrong with npm install
+  -- use({
+  --   'ravitemer/mcphub.nvim',            -- repository
+  --   run   = 'npm install -g mcp-hub@latest', -- runs right after clone/update
+  --   config = function()
+  --     require('mcphub').setup()         -- plugin‑level setup
+  --   end,
+  --   requires = { 'nvim-lua/plenary.nvim' }, -- dependencies
+  -- })
 
   if is_bootstrap then
     require('packer').sync()

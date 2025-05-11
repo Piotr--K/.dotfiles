@@ -16,7 +16,6 @@ local servers = {
   ts_ls = {},
   clojure_lsp = {},
   -- eslint = {},
-  -- prettier,
   solc = {},
   yamlls = {},
   -- solidity_ls = {
