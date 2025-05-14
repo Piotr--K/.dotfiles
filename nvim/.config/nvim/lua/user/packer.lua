@@ -168,7 +168,18 @@ require('packer').startup(function(use)
   use({
     "olimorris/codecompanion.nvim",
     config = function()
-      require("codecompanion").setup()
+      require("codecompanion").setup({
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+              show_result_in_chat = true,
+              make_vars = true,
+              make_slash_commands = true,
+            }
+          }
+        }
+      })
     end,
     requires = {
       "nvim-lua/plenary.nvim",
@@ -176,16 +187,6 @@ require('packer').startup(function(use)
       "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
     }
   })
-
-  -- todo: fix mcp-hub: something wrong with npm install
-  -- use({
-  --   'ravitemer/mcphub.nvim',            -- repository
-  --   run   = 'npm install -g mcp-hub@latest', -- runs right after clone/update
-  --   config = function()
-  --     require('mcphub').setup()         -- plugin‑level setup
-  --   end,
-  --   requires = { 'nvim-lua/plenary.nvim' }, -- dependencies
-  -- })
 
   if is_bootstrap then
     require('packer').sync()
