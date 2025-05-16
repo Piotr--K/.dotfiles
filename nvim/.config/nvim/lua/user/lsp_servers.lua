@@ -143,6 +143,14 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+local lspconfig = require("lspconfig")
+for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+  lspconfig[server_name].setup {
+    capabilities = capabilities,
+    settings = servers[server_name] or {},
+  }
+end
+
 require('lspconfig').yamlls.setup {
   settings = {
     yaml = {
