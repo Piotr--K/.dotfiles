@@ -184,8 +184,21 @@ require('packer').startup(function(use)
     requires = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
-    }
+      {
+        "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
+        -- branch = "main",
+        -- run = "bundled_build.lua",
+        -- run = "build.lua",
+        config = function()
+          require("mcphub").setup({
+            -- use_bundled_binary = true,
+            cmd     = "mcp-hub",  -- or absolute path if not on $PATH
+            cmdArgs = {},         -- <-- prevents the health-check error
+            -- optional: use_bundled_binary = true,
+          })
+        end,
+      },
+    },
   })
 
   if is_bootstrap then

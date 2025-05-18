@@ -5,6 +5,10 @@ require('iron.core').setup({
         -- Configure Iron to use the default Node.js REPL
         command = {"node"}
       },
+      typescript = {
+        -- Configure Iron to use the default Node.js REPL
+        command = {"node"}
+      },
       haskell = {
         command = {"ghci"}
         -- command = function(meta)
