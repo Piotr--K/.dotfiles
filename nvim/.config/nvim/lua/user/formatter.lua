@@ -41,7 +41,7 @@ M.config = function()
     })
 
     -- Keybinding to manually toggle auto-formatting on/off
-    vim.keymap.set("n", "<leader>tf", ToggleFormatOnSave, { desc = "Toggle format on save" })
+    vim.keymap.set("n", "<leader>fs", ToggleFormatOnSave, { desc = "Toggle format on save" })
 
     vim.keymap.set({ "n", "v" }, "<leader>pp", function()
       conform.format({

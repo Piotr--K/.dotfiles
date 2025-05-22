@@ -26,7 +26,8 @@ vim.keymap.set("n", "<leader>gs", neogit.open,
 vim.keymap.set("n", "<leader>gl", ":Neogit log<CR>",
   {silent = true, noremap = true}
 )
-
+-- TODO: this clashes with treesitter commits list:
+--   maybe i should have for all neogit keybindings n in front
 vim.keymap.set("n", "<leader>gc", ":Neogit commit<CR>",
   {silent = true, noremap = true}
 )

@@ -43,7 +43,9 @@ local servers = {
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 --  via calling it from mason below
-local on_attach = function(_, bufnr)
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local bufnr = ev.buf
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -51,47 +53,48 @@ local on_attach = function(_, bufnr)
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
   -- print("Piotr we got here")
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = 'LSP: ' .. desc
+      end
+
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
+    vim.keymap.set('n','<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()<CR>') --, '[O]pens [M]etals Picker')
 
-  vim.keymap.set('n','<leader>m', '<cmd>lua require("telescope").extensions.metals.commands()<CR>') --, '[O]pens [M]etals Picker')
+    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>T', vim.lsp.buf.hover, 'Hover [D]efinition')
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>T', vim.lsp.buf.hover, 'Hover [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    -- See `:help K` for why this keymap
+    -- is this not the same as leaderT above ?? TODO: clean it up
+    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-  -- See `:help K` for why this keymap
-  -- is this not the same as leaderT above ?? TODO: clean it up
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    -- Lesser used LSP functionality
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+    nmap('<leader>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, '[W]orkspace [L]ist Folders')
 
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
-
-  -- trying to remap sexp clashing mapping
-  vim.keymap.set('n', '<leader>|', "<Plug>(sexp_convolute)", { noremap = true, silent = true })
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
-end
+    -- trying to remap sexp clashing mapping
+    vim.keymap.set('n', '<leader>|', "<Plug>(sexp_convolute)", { noremap = true, silent = true })
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+      vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
+  end,
+})
 
 -- scala setup
 local metals_config = require("metals").bare_config()
@@ -125,25 +128,6 @@ api.nvim_create_autocmd('FileType', {
   end,
   group = nvim_metals_group,
 })
--- haskell setups - clean it up: this is part of haskell-tools
--- vim.g.haskell_tools = {
---    ---@type ToolsOpts
---    tools = {
---      -- ...
---    },
---    ---@type HaskellLspClientOpts
---    hls = {
---      on_attach = function(client, bufnr)
---        -- Set keybindings, etc. here.
---       -- on_attach(client, bufnr)
---      end,
---      -- ...
---    },
---    ---@type HTDapOpts
---    dap = {
---      -- ...
---    },
---  }
 -- Setup neovim lua configuration
 require('neodev').setup()
 --
@@ -161,28 +145,13 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name]
-      -- cmd = servers[server_name].cmd,
-      -- filetypes = servers[server_name].filetypes,
-      -- root_dir = servers[server_name].root_dir,
-      -- single_file_support = servers[server_name].single_file_support,
-      -- TODO: in orig file i have flags = lsp_flags
-    }
-  end,
-}
-
--- install linters, remaining are in linters.lua
--- TODO: consider moving this setup there as well
-require('mason-nvim-lint').setup({
-  ensure_installed = {
-    'prettier',
-  },
-})
+local lspconfig = require("lspconfig")
+for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+  lspconfig[server_name].setup {
+    capabilities = capabilities,
+    settings = servers[server_name] or {},
+  }
+end
 
 require('lspconfig').yamlls.setup {
   settings = {

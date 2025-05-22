@@ -58,22 +58,4 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
-  rainbow = {
-    enable = true,
-    -- disabling temporary to play with another fork of ts-rainbow
-    -- query = {
-    --   'rainbow-parens'
-    -- },
-    -- strategy = {
-    --   rainbow.strategy.global,
-    --   commonlisp = rainbow.strategy['local'],
-    -- },
-  },
-  -- rainbow = {
-  --   -- this is from:
-  --   -- https://github.com/p00f/nvim-ts-rainbow
-  --   enable = true,
-  --   extended_mode = true,
-  --   max_file_lines = nil,
-  -- },
 }

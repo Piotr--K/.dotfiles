@@ -66,7 +66,25 @@ require('packer').startup(function(use)
   use 'mfussenegger/nvim-dap'
 
   -- Git related plugins
-  use 'github/copilot.vim'
+  -- use 'github/copilot.vim'
+  use {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup({
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          keymap = {
+            accept = "<C-a>", -- or whatever you want to use
+
+          },
+        },
+        panel = { enabled = false },
+      })
+    end,
+  }
   -- use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
@@ -78,11 +96,7 @@ require('packer').startup(function(use)
   -- nvim change history, keymapping below
   -- vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
   use 'mbbill/undotree'
-  -- use 'hiphish/nvim-ts-rainbow2'
-  use 'mrjones2014/nvim-ts-rainbow'
-  -- use 'luochen1990/rainbow'
-  -- use 'junegunn/rainbow_parentheses.vim'
-
+  use 'HiPhish/rainbow-delimiters.nvim'
   -- Colorschemes
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   -- few to try
@@ -107,10 +121,6 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use 'guns/vim-sexp'
   use 'tpope/vim-sexp-mappings-for-regular-people'
-  --TODO: i've disabled it temp as it didnt work for me
-  --ive configured nvim-ts-rainbow to try out
-  --thats using treesitter
-  -- "luochen1990/rainbow",
   use 'Olical/conjure'
   use 'tpope/vim-dispatch'
   use 'radenling/vim-dispatch-neovim'
@@ -171,6 +181,32 @@ require('packer').startup(function(use)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end}
+
+  -- ai
+  -- codecompanion: https://codecompanion.olimorris.dev/installation.html
+
+  use({
+    "olimorris/codecompanion.nvim",
+    config = function()
+      require("codecompanion").setup({
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+              show_result_in_chat = true,
+              make_vars = true,
+              make_slash_commands = true,
+            }
+          }
+        }
+      })
+    end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
+    }
+  })
 
   if is_bootstrap then
     require('packer').sync()

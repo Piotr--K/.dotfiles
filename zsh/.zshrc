@@ -13,9 +13,8 @@ export HELM_EXPERIMENTAL_OCI=1
 export HELM_USER_DEV=
 export HELM_PW_DEV=
 export PATH=~/rakuten-ssh/bin:$PATH
-
-# something i had to add after problmes with docker desktop
-export DOCKER_HOST=unix:///Users/$USER/Library/Containers/com.docker.docker/Data/docker.raw.sock
+export NODE_EXTRA_CA_CERTS=~/.npm/rakuten-ca.pem
+export TERRAFORM_SCRIPTS=~/rakuten-rbl/PMRBL/terraform/scripts
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/piotr.karczewski/.oh-my-zsh"
