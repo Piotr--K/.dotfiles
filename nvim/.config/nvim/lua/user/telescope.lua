@@ -24,3 +24,21 @@ require('telescope').setup {
 -- pcall(require('telescope').load_extension, 'metals')
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+
+require('telescope').setup{
+  defaults = {
+    preview = {
+      -- Use bat for file previewing
+      mime_hook = function(filepath, bufnr, opts)
+        local mime_type = require("plenary.filetype").detect(filepath)
+        if mime_type == "text" then
+          local cmd = { "bat", "--style=plain", "--color=always", filepath }
+          require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
+          return true
+        end
+        return false
+      end
+    }
+  }
+}
+

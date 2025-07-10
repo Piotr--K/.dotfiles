@@ -74,3 +74,25 @@ alias kdsec='kubectl describe secret'
 alias rd='rakcd' && compdef rd='rakcd'
 alias bastion_ebp_stage='az ssh vm --ip nalhrvjfoclxnydy.japaneast.cloudapp.azure.com'
 alias bastion_ebp_prod='az ssh vm --ip vptpbufjbywnkjlj.japaneast.cloudapp.azure.com'
+#docker
+alias d="docker"
+alias dps="docker ps"
+alias dpsa='docker ps -a'
+alias dimg="docker images"
+alias drm="docker rm"
+alias drmi="docker rmi"
+alias dst="docker stop"
+alias dlog="docker logs"
+alias dlogf="docker logs -f"
+alias dexec="docker exec -it"
+alias dclean="docker container prune -f && docker image prune -f"
+#docker compose
+alias dc="docker compose"
+alias dcu="docker compose up"
+alias dcud="docker compose up -d"
+alias dcub="docker compose up --build"
+alias dcd="docker compose down"
+alias dcdv="docker compose down -v"
+alias dcr="docker compose restart"
+alias dcl="docker compose logs"
+alias dclf="docker compose logs -f"
