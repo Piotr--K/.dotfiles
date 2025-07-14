@@ -11,3 +11,5 @@ but that didn't help with my problem, had to manually remove 'site' folder in:
 
 TODOs:
 1. install & configure: which-key: https://github.com/folke/which-key.nvim
+2. move from packet to lazy.nvim
+
