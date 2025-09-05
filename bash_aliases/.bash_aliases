@@ -32,7 +32,7 @@ alias lg2='git log --graph --abbrev-commit --decorate --format=format:"%C(bold b
 #fzf
 alias fzfp="fzf --preview 'bat {-1} --color=always'"
 alias fzfv='nvim $(fzfp)'
-alias rabbit='echo "Username      : rblminer" && echo "Password      : $(kubectl get secret --namespace default rabbitmq-auth -o jsonpath="{.data.rabbitmq-password}" | base64 --decode)" && open "http://127.0.0.1:15672" && kubectl port-forward --namespace default svc/rabbitmq 15672:15672'
+alias rabbit='echo "Username      : rblminer" && echo "Password      : $(kubectl get secret --namespace default rbl-rabbitmq-secrets -o jsonpath="{.data.rabbitmq-password}" | base64 --decode)" && open "http://127.0.0.1:15672" && kubectl port-forward --namespace default svc/rabbitmq 15672:15672'
 
 #kubectl
 alias k='kubectl'

@@ -29,13 +29,14 @@ end
 local function pick_docker_container(callback)
     pickers.new({}, {
         prompt_title = "Select a Docker Container",
-        finder = finders.new_oneshot_job({'docker', 'ps', '--format', '{{.ID}} {{.Names}}'}, {cwd = "/"}),
+        finder = finders.new_oneshot_job({'docker', 'ps', '--format', '{{.ID}} {{.Names}}'}, {cwd = vim.fn.getcwd()}),
         sorter = conf.generic_sorter({}),
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
                 local selection = action_state.get_selected_entry()
                 actions.close(prompt_bufnr)
                 local container_id = selection.value:match("^%S+")
+                print("Selected container ID: " .. container_id)
                 callback(container_id)
             end)
             return true
@@ -56,8 +57,10 @@ function M.setup()
   require("dap-vscode-js").setup {
     node_path = "node",
     debugger_path = DEBUGGER_PATH,
-    -- debugger_cmd = { "js-debug-adapter" },
     adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
+    log_file_path = vim.fn.stdpath("cache") .. "/dap_vscode_js.log", -- Path to file for logging DAP messages
+    log_file_level = vim.log.levels.DEBUG, -- Logging level for output to file
+    log_console_level = vim.log.levels.ERROR, -- Logging level for output to console
   }
 
   -- require("dap-vscode-js").adapters.node = {
@@ -91,36 +94,35 @@ function M.setup()
       {
         type = "pwa-node",
         request = "attach",
-        name = "Attach to process with filter",
+        name = "Attach to Docker Container",
         processId = function(callback)
-          pick_docker_container(function(pid)
-            callback(pid)
+          pick_docker_container(function(container_id)
+            callback(container_id)
           end)
         end,
         protocol = "inspector",
-        port = 20067,
-        cwd = "${workspaceFolder}",
+        port = 21000,
+        address = "0.0.0.0",
+        remoteRoot = "/app/",
+        localRoot = "${workspaceFolder}",
+        sourceMaps = true,
+        skipFiles = {'<node_internals>/**'},
+        restart = true,
+        continueOnAttach = true,
       },
       {
         type = 'pwa-node',
         request = 'attach',
         name = 'Attach to Docker',
-        -- platform = 'node',
         address = '0.0.0.0',
-        -- hostname = 'localhost',   -- Use 'localhost' if you map the port to the host
-        port = 20067,             -- The port you exposed and mapped in docker-compose
-        -- badge-service: 20067,
-        -- 20207: transaction-cache-service
-        remoteRoot = '/app/',      -- Adjust this to the working directory in the container
-        -- badge-service: /app/
-        -- transaction-cache-service: /app/
-        -- localRoot = vim.fn.getcwd(),
+        port = 21000,             -- The port you exposed and mapped in docker-compose
+        remoteRoot = '/app/',      -- Working directory in the container
         localRoot = '${workspaceFolder}',
-        -- cwd = '${workspaceFolder}',  -- Adjust this to your local project directory
-        -- protocol = 'inspector',
-        -- sourceMaps = true,
-          -- protocol = 'inspector',
-        -- skipFiles = {'<node_internals>/**'},
+        protocol = 'inspector',
+        sourceMaps = true,
+        skipFiles = {'<node_internals>/**'},
+        restart = true,
+        continueOnAttach = true,
       },
       {
         type = "pwa-node",

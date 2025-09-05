@@ -1,66 +1,58 @@
 local M = {}
 
-local HOME = os.getenv "HOME"
-local DEBUGGER_LOCATION = HOME .. "/.local/share/nvim/vscode-chrome-debug"
+local DEBUGGER_PATH = vim.fn.stdpath "data" .. "/site/pack/packer/opt/vscode-js-debug"
 
 function M.setup()
   local dap = require "dap"
 
-  dap.adapters.chrome = {
-    type = "executable",
-    command = "node",
-    args = { DEBUGGER_LOCATION .. "/src/chromeDebug.js" },
+  -- Use the same adapter as JavaScript
+  require("dap-vscode-js").setup {
+    node_path = "node",
+    debugger_path = DEBUGGER_PATH,
+    adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
   }
 
-  dap.configurations.javascript = {
-    {
-      type = "chrome",
-      request = "attach",
-      program = "${file}",
-      cwd = vim.fn.getcwd(),
-      sourceMaps = true,
-      protocol = "inspector",
-      port = 9222,
-      webRoot = "${workspaceFolder}",
-    },
-  }
-
-  dap.configurations.javascriptreact = {
-    {
-      type = "chrome",
-      request = "attach",
-      program = "${file}",
-      cwd = vim.fn.getcwd(),
-      sourceMaps = true,
-      protocol = "inspector",
-      port = 9222,
-      webRoot = "${workspaceFolder}",
-    },
-  }
+  -- JavaScript configurations are now handled in javascript.lua
 
   dap.configurations.typescript = {
     {
-      type = "chrome",
-      request = "attach",
+      type = "pwa-node",
+      request = "launch",
+      name = "Launch file",
       program = "${file}",
-      cwd = vim.fn.getcwd(),
-      sourceMaps = true,
-      protocol = "inspector",
-      port = 9222,
-      webRoot = "${workspaceFolder}",
+      cwd = "${workspaceFolder}",
     },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach to Docker",
+      address = "0.0.0.0",
+      port = 21000,
+      remoteRoot = "/app/",
+      localRoot = "${workspaceFolder}",
+      protocol = "inspector",
+      sourceMaps = true,
+      skipFiles = {"<node_internals>/**"},
+      restart = true,
+      continueOnAttach = true,
+    },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach to Process",
+      processId = require("dap.utils").pick_process,
+      cwd = "${workspaceFolder}",
+    }
   }
 
   dap.configurations.typescriptreact = {
     {
-      type = "chrome",
-      request = "attach",
-      program = "${file}",
-      cwd = vim.fn.getcwd(),
-      sourceMaps = true,
-      protocol = "inspector",
-      port = 9222,
+      type = "pwa-chrome",
+      name = "Launch Chrome",
+      request = "launch",
+      url = "http://localhost:3000",
       webRoot = "${workspaceFolder}",
+      sourceMaps = true,
     },
   }
 end
