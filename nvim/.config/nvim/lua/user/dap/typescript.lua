@@ -1,6 +1,6 @@
 local M = {}
 
-local DEBUGGER_PATH = vim.fn.stdpath "data" .. "/site/pack/packer/opt/vscode-js-debug"
+local DEBUGGER_PATH = vim.fn.stdpath "data" .. "/lazy/vscode-js-debug"
 
 function M.setup()
   local dap = require "dap"

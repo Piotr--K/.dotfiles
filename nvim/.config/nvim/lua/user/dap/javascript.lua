@@ -1,4 +1,4 @@
-local DEBUGGER_PATH = vim.fn.stdpath "data" .. "/site/pack/packer/opt/vscode-js-debug"
+local DEBUGGER_PATH = vim.fn.stdpath "data" .. "/lazy/vscode-js-debug"
 
 local M = {}
 
@@ -59,7 +59,7 @@ function M.setup()
     debugger_path = DEBUGGER_PATH,
     adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
     log_file_path = vim.fn.stdpath("cache") .. "/dap_vscode_js.log", -- Path to file for logging DAP messages
-    log_file_level = vim.log.levels.DEBUG, -- Logging level for output to file
+    log_file_level = vim.log.levels.WARN, -- Changed from DEBUG to reduce log noise
     log_console_level = vim.log.levels.ERROR, -- Logging level for output to console
   }
 
