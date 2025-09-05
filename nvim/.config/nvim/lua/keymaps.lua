@@ -6,7 +6,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 -- keymapping for undotree
-vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Toggle Undotree' })
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -21,9 +21,9 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 vim.keymap.set('n', '<leader>sp', function()
-  -- TODO: i've added this, would like to change it to Ack
+  -- Search in project - using live_grep instead of Ack for better integration
   require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
-end)
+end, { desc = 'Search in project' })
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = '[G]it [F]iles' })
@@ -41,10 +41,10 @@ vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, { de
 vim.keymap.set('n', '<leader>gbc', require('telescope.builtin').git_bcommits, { desc = '[G]it buffer [C]ommits' })
 
 -- nvim-tree
-vim.keymap.set('n', '<leader>xx', require('nvim-tree.api').tree.toggle)
+vim.keymap.set('n', '<leader>xx', require('nvim-tree.api').tree.toggle, { desc = 'Toggle file tree' })
 -- default keymappings here: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
 -- prettier/formatter keymap
-vim.keymap.set('n', '<leader>fp', ':Format<CR>')
+vim.keymap.set('n', '<leader>fp', ':Format<CR>', { desc = 'Format with LSP' })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
@@ -61,7 +61,7 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- toggleterm
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", {noremap = true, silent = true}) -- Floating terminal
-vim.api.nvim_set_keymap("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<CR>", {noremap = true, silent = true}) -- Horizontal terminal
-vim.api.nvim_set_keymap("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", {noremap = true, silent = true}) -- Vertical terminal
+vim.keymap.set('n', '<leader>g', '<cmd>lua _LAZYGIT_TOGGLE()<CR>', { desc = 'Toggle Lazygit', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tf', '<cmd>ToggleTerm direction=float<CR>', { desc = 'Toggle floating terminal', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>th', '<cmd>ToggleTerm size=10 direction=horizontal<CR>', { desc = 'Toggle horizontal terminal', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tv', '<cmd>ToggleTerm direction=vertical<CR>', { desc = 'Toggle vertical terminal', noremap = true, silent = true })

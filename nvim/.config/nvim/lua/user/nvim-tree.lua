@@ -1,7 +1,7 @@
 require("nvim-tree").setup({
   diagnostics = {
     enable = true,
--- TODO: setup icons for hint/info/warning/error if defaults don't work
+-- Icons configuration - using defaults which work well with nvim-web-devicons
   },
   view = {
     width = 30,

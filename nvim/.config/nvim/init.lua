@@ -6,4 +6,4 @@ require('keymaps')
 vim.opt.clipboard = "unnamedplus"
 
 -- Ctrl-p will show current file path
-vim.api.nvim_set_keymap('n', '<C-p>', ":echo expand('%:p')<CR>", {noremap = true, silent = true})
+vim.keymap.set('n', '<C-p>', ":echo expand('%:p')<CR>", { desc = 'Show current file path', noremap = true, silent = true })
