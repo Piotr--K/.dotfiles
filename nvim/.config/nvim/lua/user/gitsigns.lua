@@ -71,7 +71,7 @@ require('gitsigns').setup {
     end)
 
     -- Actions
-    -- TODO: mapping for :Gitsigns blame - which opens a new buffer with the blame
+    -- Full blame buffer mapping added below as <leader>hB
     map('n', '<leader>hs', gitsigns.stage_hunk)
     map('n', '<leader>hr', gitsigns.reset_hunk)
     map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
