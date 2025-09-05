@@ -34,8 +34,8 @@ vim.o.termguicolors = true
 -- vim.cmd[[colorscheme tokyonight]]
 -- vim.cmd [[colorscheme nightfox]] 
 
-vim.cmd [[colorscheme rose-pine]]
--- vim.cmd("highlight Cursor guifx=rose guibg=rose")
+-- vim.cmd [[colorscheme rose-pine]]
+-- vim.cmd("highlight CursorLine guibg=#1E1E1E ctermbg=236")
 
 -- setting transparent background
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

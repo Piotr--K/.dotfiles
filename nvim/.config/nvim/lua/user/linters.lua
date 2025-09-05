@@ -6,6 +6,9 @@ require('lint').linters_by_ft = {
   typescript = {'eslint'},  -- If you're using TypeScript
   javascriptreact = {'eslint'},  -- For React JS files
   typescriptreact = {'eslint'},  -- For React TS files
+  haskell = {'hlint'},
+  clojure = {'clj-kondo'},
+  golang =  {'golangci-lint'},
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {

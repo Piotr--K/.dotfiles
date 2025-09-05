@@ -23,10 +23,11 @@ require('packer').startup(function(use)
     requires = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
+      'mfussenegger/nvim-lint',
+      'rshkarin/mason-nvim-lint',
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- { 'j-hui/fidget.nvim', tag = 'legacy' },
       { 'j-hui/fidget.nvim', tag = 'v1.4.5' },
 
       -- Additional lua configuration, makes nvim stuff amazing
@@ -73,20 +74,16 @@ require('packer').startup(function(use)
   use 'NeogitOrg/neogit'
   use 'sindrets/diffview.nvim'
   -- use 'tpope/vim-commentary' -- TODO: probably dont need this as have Comment below
-  -- use 'p00f/nvim-ts-rainbow' -- TODO: its not maintained anymore - check alternatives
   -- nvim change history, keymapping below
   -- vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
   use 'mbbill/undotree'
-  -- use 'hiphish/nvim-ts-rainbow2'
-  use 'mrjones2014/nvim-ts-rainbow'
-  -- use 'luochen1990/rainbow'
-  -- use 'junegunn/rainbow_parentheses.vim'
+  use 'HiPhish/rainbow-delimiters.nvim'
 
   -- Colorschemes
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   -- few to try
-  use 'EdenEast/nightfox.nvim' -- to use do: vim.cmd('colorscheme nightfox')
-  use 'folke/tokyonight.nvim' -- vim.cmd('colorscheme tokyonight') or vim.cmd[[colorscheme tokyonight]]
+  -- use 'EdenEast/nightfox.nvim' -- to use do: vim.cmd('colorscheme nightfox')
+  -- use 'folke/tokyonight.nvim' -- vim.cmd('colorscheme tokyonight') or vim.cmd[[colorscheme tokyonight]]
   -- this will run tokyonight default schema to run variants [storm, night, moon, day] do
   -- require("tokyonight").setup({
   --  style = "storm"
@@ -127,11 +124,13 @@ require('packer').startup(function(use)
   -- haskell
   -- this plugin automatically configures the haskell-language-server builtin LSP client and integrates
   -- with other haskell tools, you just need some mappings
-  use { 'mrcjkb/haskell-tools.nvim', versions = '^3', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
+  -- use { 'mrcjkb/haskell-tools.nvim', versions = '^4', ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' }, }
 
   use 'leoluz/nvim-dap-go'
 
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+
+  use "b0o/schemastore.nvim"
 
   --typescript
   use 
@@ -158,6 +157,49 @@ require('packer').startup(function(use)
   -- but it support well clojure and other lisp
   -- but i wanted javascript/nodejs and hasckell
   use 'Vigemus/iron.nvim'
+
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
+
+  -- ai
+  -- codecompanion: https://codecompanion.olimorris.dev/installation.html
+
+  use({
+    "olimorris/codecompanion.nvim",
+    config = function()
+      require("codecompanion").setup({
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+              show_result_in_chat = true,
+              make_vars = true,
+              make_slash_commands = true,
+            }
+          }
+        }
+      })
+    end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      {
+        "ravitemer/mcphub.nvim", -- this is an extension, code companion would work without it
+        -- branch = "main",
+        -- run = "bundled_build.lua",
+        -- run = "build.lua",
+        config = function()
+          require("mcphub").setup({
+            -- use_bundled_binary = true,
+            cmd     = "mcp-hub",  -- or absolute path if not on $PATH
+            cmdArgs = {},         -- <-- prevents the health-check error
+            -- optional: use_bundled_binary = true,
+          })
+        end,
+      },
+    },
+  })
 
   if is_bootstrap then
     require('packer').sync()
