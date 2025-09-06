@@ -142,9 +142,10 @@ return {
       "nvim-treesitter/nvim-treesitter",
       {
         "ravitemer/mcphub.nvim",
+        build = "bundled_build.lua",
         config = function()
           require("mcphub").setup({
-            cmd = "mcp-hub",
+            use_bundled_binary = true,
             cmdArgs = {},
           })
         end,
@@ -152,6 +153,13 @@ return {
     },
     config = function()
       require("codecompanion").setup({
+        display = {
+          chat = {
+            window = {
+              position = "right",
+            },
+          },
+        },
         extensions = {
           mcphub = {
             callback = "mcphub.extensions.codecompanion",
